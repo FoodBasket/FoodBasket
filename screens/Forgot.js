@@ -70,7 +70,8 @@ export default class Login extends Component {
     
 
     return (
-      <ScrollView style={{ marginVertical: theme.sizes.padding,backgroundColor: "#F6EEEE" }} >
+      <Block style={{backgroundColor :"#F6EEEE"}}>
+      <ScrollView style={{ marginVertical: theme.sizes.padding}} >
       <KeyboardAvoidingView style={styles.login} >
     
 
@@ -111,6 +112,7 @@ export default class Login extends Component {
         
       </KeyboardAvoidingView>
         </ScrollView>
+        </Block>
 
     );
   }

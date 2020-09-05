@@ -109,21 +109,19 @@ export default class Register extends Component {
             />
             <Input 
               placeholder="Password"
-              placeholderTextColor="gray"
+              placeholderTextColor="#7D3C3C"
               secureTextEntry={true}
               error={hasErrors("password")}
               style={[styles.textInput, hasErrors("password")]}
-              defaultValue={this.state.password}
               onChangeText={text => this.setState({ password: text })}
             />
 
 <Input 
               placeholder="Re-Type Password"
-              placeholderTextColor="gray"
+              placeholderTextColor="#7D3C3C"
               secureTextEntry={true}
               error={hasErrors("password")}
               style={[styles.textInput, hasErrors("password")]}
-              defaultValue={this.state.password}
               onChangeText={text => this.setState({ password: text })}
             />
             <Text>{"\n"}</Text>
