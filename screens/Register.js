@@ -20,7 +20,7 @@ const VALID_EMAIL = "contact@react-ui-kit.com";
 const VALID_PASSWORD = "subscribe";
 
 
-export default class Login extends Component {
+export default class Register extends Component {
   state = {
     email: VALID_EMAIL,
     password: VALID_PASSWORD,
@@ -80,23 +80,46 @@ export default class Login extends Component {
         <Block style= {styles.logoblock}> 
          <Image  style= {styles.logoimage} source={require('../assets/logo.jpg')}
          />     
-         <Text style= {styles.loginText} h1 center>Login to Proceed !</Text>   
     <Text>{"\n"}</Text>
           </Block>
 
         <Block padding={[0, theme.sizes.base * 0.6]}>
           <Block middle>
             <Input  
-              placeholder="Username or Email"
+              placeholder="Fullname"
               placeholderTextColor="#7D3C3C"
               error={hasErrors("email")}
-              style={[styles.textInput, ]}
-              defaultValue={this.state.email}
+              style={[styles.textInput, hasErrors("email")]}
+              onChangeText={text => this.setState({ email: text })}
+            />
+
+            <Input  
+              placeholder="Email Address"
+              placeholderTextColor="#7D3C3C"
+              error={hasErrors("email")}
+              style={[styles.textInput, hasErrors("email")]}
+              onChangeText={text => this.setState({ email: text })}
+            />
+            <Input  
+              placeholder="Phone Number"
+              placeholderTextColor="#7D3C3C"
+              error={hasErrors("email")}
+              style={[styles.textInput, hasErrors("email")]}
               onChangeText={text => this.setState({ email: text })}
             />
             <Input 
               placeholder="Password"
-              placeholderTextColor="#7D3C3C"
+              placeholderTextColor="gray"
+              secureTextEntry={true}
+              error={hasErrors("password")}
+              style={[styles.textInput, hasErrors("password")]}
+              defaultValue={this.state.password}
+              onChangeText={text => this.setState({ password: text })}
+            />
+
+<Input 
+              placeholder="Re-Type Password"
+              placeholderTextColor="gray"
               secureTextEntry={true}
               error={hasErrors("password")}
               style={[styles.textInput, hasErrors("password")]}
@@ -119,36 +142,9 @@ export default class Login extends Component {
           </Block>
         </Block>
         </Card>
-        <TouchableOpacity onPress={() => navigation.navigate("Forgot")}>
+      
 
-              <Text
-                caption
-                center
-                style={{fontSize:width/29,}}
-                
-              >
-                Forgot your password?
-                {"\n"}{"\n"}
-              </Text>
-        </TouchableOpacity>
-        
-        <TouchableOpacity onPress={() => navigation.navigate("Register")}>
-        <Text
-                caption
-                center
-                gray
-                style={{fontSize:width/29,}}
-                
-              >
-                Don't have an account?
-        
-                
-                <Text style={{color:'#FF6600'}}>Click Here</Text> 
-                   
-         </Text>
-         </TouchableOpacity>
-
-
+      
 
         <Text 
         style={styles.elgyan} center h2 light>

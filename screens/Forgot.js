@@ -30,9 +30,9 @@ export default class Login extends Component {
   
   static navigationOptions = () => ({
     title: 'Forgot Password',
-    headerTintColor: 'white',
+    headerTintColor: '#FC4A1A',
     headerStyle: {
-      backgroundColor: '#2BDA8E'
+      backgroundColor: 'white'
     },
   });
 
@@ -70,7 +70,7 @@ export default class Login extends Component {
     
 
     return (
-      <ScrollView style={{ marginVertical: theme.sizes.padding,backgroundColor: "#eff7f4" }} >
+      <ScrollView style={{ marginVertical: theme.sizes.padding,backgroundColor: "#F6EEEE" }} >
       <KeyboardAvoidingView style={styles.login} >
     
 
@@ -78,7 +78,7 @@ export default class Login extends Component {
         <Card style={styles.cardstyle}>  
 
         <Block style= {styles.logoblock}> 
-         <Image  style= {styles.logoimage} source={require('../assets/loginicon.png')}
+         <Image  style= {styles.logoimage} source={require('../assets/logo.jpg')}
          />     
          <Text style= {styles.loginText} h1 center>Forgot Password ?? </Text>   
     <Text>{"\n"}</Text>
@@ -87,9 +87,8 @@ export default class Login extends Component {
         <Block padding={[0, theme.sizes.base * 0.6]}>
           <Block middle>
              <Input  
-              placeholder="Phone Number"
-              placeholderTextColor="gray"
-              error={hasErrors("phone_number")}
+              placeholder="  Email Address"
+              placeholderTextColor="#7D3C3C"
               style={[styles.textInput, hasErrors("phone_number")]}
               onChangeText={text => this.setState({ phone_number: text })}
             />
@@ -100,7 +99,7 @@ export default class Login extends Component {
                 <ActivityIndicator size="small" color="white" />
               ) : (
                 <Text bold white center>
-                  Request Admin
+                  Request Pin
                 </Text>
               )}
             </Button>
@@ -109,20 +108,7 @@ export default class Login extends Component {
           </Block>
         </Block>
         </Card>
-        <TouchableOpacity onPress={() => navigation.navigate("AboutForgot")}>
-        <Text
-          gray
-          caption
-          center
-          bold
-          style={{fontSize:15,}}
-          
-        >
-          {"\n"}
-          What's all this? Help !
-        </Text>
-        </TouchableOpacity>
-  
+        
       </KeyboardAvoidingView>
         </ScrollView>
 
@@ -143,7 +129,7 @@ const styles = StyleSheet.create({
         alignItems: 'center', 
   },
   logoimage: {
-        width: width * 0.3, 
+        width: width * 0.5, 
         height: width * 0.5 * 0.5,
   },
 

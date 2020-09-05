@@ -50,8 +50,16 @@ class Welcome extends Component {
               height={24}
               style={{ marginBottom: theme.sizes.base }}
             >
-              1. Your use of the Service is at your sole risk. The service is
-              provided on an "as is" and "as available" basis.
+              1. Welcome to the Homeseek website/app. If you continue to browse and use our website
+                  as well as app, you are to concur with and be bound by the following terms and
+                  conditions of use, which automatically implies that you acknowledge, understand and
+                  agree to all our policies. If you disagree with any part of these terms and conditions,
+                  please do not use our website. The term ‘Homeseekfood.com’ or ‘us’ or ‘we’ refers to
+                  the owner of this website. The terms ‘you’ or &#39;our customers&#39; or &#39;website users&#39; refers to
+                  the user or viewer of our website. Homeseek may change or modify its Terms and
+                  Policies in the future and for any or no reason by posting revisions here. Your continued
+                  use of the site constitutes your acceptance of the revised Terms. You should visit this
+                  page and review the Terms and policies recurrently.
             </Text>
             <Text
               caption
@@ -59,8 +67,12 @@ class Welcome extends Component {
               height={24}
               style={{ marginBottom: theme.sizes.base }}
             >
-              2. Support for Expo services is only available in English, via
-              e-mail.
+              2. Homeseekfood.com is owned and operated by RAA Pvt. Ltd. Our services are limited to
+                enable home based cooks to sell food to their customers. We are in no way responsible
+                for the quality of the foods and their packaging as offered by the home chefs. Please
+                note that at any given time and with or without notice, we may offer any kind of
+                incentives or promotions, shorten or extend the duration of any incentive or promotion
+                program and/or terminate or modify any incentive or promotion programs.
             </Text>
             <Text
               caption
@@ -68,9 +80,11 @@ class Welcome extends Component {
               height={24}
               style={{ marginBottom: theme.sizes.base }}
             >
-              3. You understand that Expo uses third-party vendors and hosting
-              partners to provide the necessary hardware, software, networking,
-              storage, and related technology required to run the Service.
+              3. The information regarding price, product specifications and availability included in this
+                  site is directly provided by us and Homeseek has every right to influence on the pricing
+                  scheme. The prices charged by us cover the production cost and a marginal profit. The
+                  prices listed on the website are the final prices for the customers, unless mentioned
+                  otherwise.
             </Text>
             <Text
               caption
@@ -78,9 +92,10 @@ class Welcome extends Component {
               height={24}
               style={{ marginBottom: theme.sizes.base }}
             >
-              4. You must not modify, adapt or hack the Service or modify
-              another website so as to falsely imply that it is associated with
-              the Service, Expo, or any other Expo service.
+              4. All ordering is performed online or via telephone. Buyers can pay with cash on delivery
+                  or pay fully via the payment gateway if any. Homeseek provides you with a separate
+                  online bill at the time of ordering. Homeseek shall not in any manner be considered the
+                  seller of the food but merely a platform.
             </Text>
             <Text
               caption
@@ -88,12 +103,11 @@ class Welcome extends Component {
               height={24}
               style={{ marginBottom: theme.sizes.base }}
             >
-              5. You may use the Expo Pages static hosting service solely as
-              permitted and intended to host your organization pages, personal
-              pages, or project pages, and for no other purpose. You may not use
-              Expo Pages in violation of Expo's trademark or other rights or in
-              violation of applicable law. Expo reserves the right at all times
-              to reclaim any Expo subdomain without liability to you.
+              5. Homeseek takes customer satisfaction very seriously. In the case of problems with your
+                  food order, please contact us. In appropriate cases, Homeseek will issue full or partial
+                  refunds. For example: if you did not receive your order or received an incorrect order,
+                  you may be issued a full refund; if part of your order is missing, we may issue a partial
+                  refund. In every event, we will do our best to ensure your satisfaction.
             </Text>
             <Text
               caption
@@ -101,9 +115,13 @@ class Welcome extends Component {
               height={24}
               style={{ marginBottom: theme.sizes.base }}
             >
-              6. You agree not to reproduce, duplicate, copy, sell, resell or
-              exploit any portion of the Service, use of the Service, or access
-              to the Service without the express written permission by Expo.
+              6. The site and its content are Homeseek property and are protected by copyright, patent,
+                  trademark and other intellectual property laws. Except as expressly authorized herein,
+                  you may not reproduce, transmit, sell, display, publish, broadcast, distribute, circulate,
+                  modify, disseminate or commercially exploit this site or its content in any manner
+                  (including electronic, print or other media now known or hereafter developed) without
+                  our written consent. If you have any questions about any material posted on this site,
+                  we urge you to contact a Homeseekfood.com representative.
             </Text>
             <Text
               caption
@@ -111,11 +129,9 @@ class Welcome extends Component {
               height={24}
               style={{ marginBottom: theme.sizes.base }}
             >
-              7. We may, but have no obligation to, remove Content and Accounts
-              containing Content that we determine in our sole discretion are
-              unlawful, offensive, threatening, libelous, defamatory,
-              pornographic, obscene or otherwise objectionable or violates any
-              party's intellectual property or these Terms of Service.
+              7. You acknowledge that from time to time, we may record certain telephone calls used
+                  for customer service and/or related purposes, and to the extent that any such recording
+                  occurs involving you, you consent to such recordings.
             </Text>
             <Text
               caption
@@ -123,9 +139,11 @@ class Welcome extends Component {
               height={24}
               style={{ marginBottom: theme.sizes.base }}
             >
-              8. Verbal, physical, written or other abuse (including threats of
-              abuse or retribution) of any Expo customer, employee, member, or
-              officer will result in immediate account termination.
+              8. We employ the use of cookies. By accessing Homeseekfood, you agreed to use cookies
+                  in agreement with the Homeseek&#39;s Privacy Policy. Most interactive websites use cookies
+                  to let us retrieve the user’s details for each visit. Cookies are used by our website to
+                  enable the functionality of certain areas to make it easier for people visiting our
+                  website. Some of our affiliate/advertising partners may also use cookies.
             </Text>
             <Text
               caption
@@ -133,11 +151,54 @@ class Welcome extends Component {
               height={24}
               style={{ marginBottom: theme.sizes.base }}
             >
-              9. You understand that the technical processing and transmission
-              of the Service, including your Content, may be transferred
-              unencrypted and involve (a) transmissions over various networks;
-              and (b) changes to conform and adapt to technical requirements of
-              connecting networks or devices.
+              9. Unless otherwise stated, Homeseek and/or its licensors own the intellectual property
+                rights for all material on Homeseekfood. All intellectual property rights are reserved.
+                You may access this from Homeseekfood for your own personal use subjected to
+                restrictions set in these terms and conditions.
+                {"\n"}{"\n"}
+                You must not:
+                {"\n"}
+                Republish material from Homeseekfood
+                {"\n"}
+                Sell, rent or sub-license material from Homeseekfood
+                {"\n"}
+                Reproduce, duplicate or copy material from Homeseekfood
+                {"\n"}
+                Redistribute content from Homeseekfood
+                {"\n"}
+                This Agreement shall begin on the date hereof.
+                {"\n"}
+                Parts of this website offer an opportunity for users to post and exchange opinions and
+                information in certain areas of the website. Homeseek does not filter, edit, publish or
+                review Comments prior to their presence on the website. Comments do not reflect the
+                views and opinions of Homeseek,its agents and/or affiliates. Comments reflect the
+                views and opinions of the person who post their views and opinions. To the extent
+                permitted by applicable laws, Homeseek shall not be liable for the Comments or for any
+                liability, damages or expenses caused and/or suffered as a result of any use of and/or
+                posting of and/or appearance of the Comments on this website.
+                {"\n"}
+                Homeseek reserves the right to monitor all Comments and to remove any Comments
+                which can be considered inappropriate, offensive or causes breach of these Terms and
+                Conditions.
+                {"\n"}
+                You warrant and represent that:
+                {"\n"}
+                You are entitled to post the Comments on our website and have all necessary licenses
+                and consents to do so;
+                {"\n"}
+                The Comments do not invade any intellectual property right, including without
+                limitation copyright, patent or trademark of any third party;
+                {"\n"}
+                The Comments do not contain any defamatory, libelous, offensive, indecent or
+                otherwise unlawful material which is an invasion of privacy
+                {"\n"}
+                The Comments will not be used to solicit or promote business or custom or present
+                commercial activities or unlawful activity.
+                {"\n"}
+                You hereby grant Homeseek a non-exclusive license to use, reproduce, edit and
+                authorize others to use, reproduce and edit any of your Comments in any and all forms,
+                formats or media.
+
             </Text>
             <Text
               caption
@@ -145,8 +206,16 @@ class Welcome extends Component {
               height={24}
               style={{ marginBottom: theme.sizes.base }}
             >
-              10. You must not upload, post, host, or transmit unsolicited
-              e-mail, SMSs, or "spam" messages.
+              10. IN NO EVENT SHALL FOODMANDU OR ITS DIRECTORS, MEMBERS, EMPLOYEES, OR
+                  AGENTS BE LIABLE TO YOU OR ANY THIRD PARTY FOR ANY INDIRECT, CONSEQUENTIAL,
+                  EXEMPLARY, INCIDENTAL, SPECIAL OR PUNITIVE DAMAGES, INCLUDING LOST PROFIT
+                  DAMAGES ARISING FROM YOUR USE OF THE WEBSITE OR FOODMANDU SERVICES, EVEN
+                  IF FOODMANDU HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+                  NOTWITHSTANDING ANYTHING TO THE CONTRARY CONTAINED HEREIN,
+                  FOODMANDU&#39;S LIABILITY TO YOU FOR ANY CAUSE WHATSOEVER AND REGARDLESS OF
+                  THE FORM OF THE ACTION, WILL AT ALL TIMES BE LIMITED TO THE AMOUNT PAID, IF
+                  ANY, BY YOU TO FOODMANDU FOR FOODMANDU SERVICES DURING THE PERIOD OF 1
+                  MONTH PRIOR TO ANY CAUSE OF ACTION ARISING.
             </Text>
           </ScrollView>
 
@@ -225,12 +294,13 @@ class Welcome extends Component {
     const { navigation } = this.props;
 
     return (
-      <ImageBackground source={require("../assets/background-image.jpg")}  style={styles.image}>
-      <Block>
+      <Block style={{backgroundColor :"#F6EEEE"}}>
       
         <Block center middle>
         <Text h1 center>{"\n"}</Text>  
-        <Text h1 center>Welcome {"\n"}</Text>   
+        <Text h2 center light>
+            Welcome{"\n"}
+          </Text>  
  
           {this.renderIllustrations()}
         </Block>
@@ -242,7 +312,7 @@ class Welcome extends Component {
                 center
                 style={{fontSize:width/30,}}
               >
-             Let's Get Started  >>
+             Let's Get Started &gt;
             </Text>
           </Button>
           <Button style={styles.button} onPress={() => this.setState({ showTerms: true })}>
@@ -259,14 +329,13 @@ class Welcome extends Component {
         </Block>
         {this.renderTermsService()}
       </Block>
-      </ImageBackground>
     );
   }
 }
 
 Welcome.defaultProps = {
   illustrations: [
-    { id: 1, source: require("../assets/images/parent.png") }
+    { id: 1, source: require("../assets/images/tutorial1.png") }
     
   ]
 };

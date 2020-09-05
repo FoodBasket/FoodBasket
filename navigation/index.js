@@ -32,6 +32,7 @@ import Leave from "../screens/Leave";
 import Notification from "../screens/Notification";
 import NotificationDetails from "../screens/NotificationDetails";
 import AboutApp from "../screens/AboutApp";
+import Register from "../screens/Register";
 
 const screens = createStackNavigator(
   {
@@ -64,6 +65,7 @@ const screens = createStackNavigator(
     Notification,
     NotificationDetails,
     AboutApp,
+    Register,
   },
   {
     headerLayoutPreset: 'center',
