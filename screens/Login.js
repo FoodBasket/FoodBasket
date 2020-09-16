@@ -16,7 +16,7 @@ import { Card } from "../components";
 import { Button, Block, Input, Text } from "../components";
 import { theme } from "../constants";
 
-const VALID_EMAIL = "contact@react-ui-kit.com";
+const VALID_EMAIL = "mallas@food-app.com";
 const VALID_PASSWORD = "subscribe";
 
 
@@ -150,11 +150,7 @@ export default class Login extends Component {
 
 
 
-        <Text 
-        style={styles.elgyan} center h2 light>
-          
-            Powered By Elscript Technology Pvt. Ltd.
-          </Text>
+       
        
       </KeyboardAvoidingView>
         </ScrollView>

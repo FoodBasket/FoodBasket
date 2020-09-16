@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "School App",
-    "android":{
-   "package":"com.initials.elgyan",
-   "versionCode":1,
-   "permissions":[],
-   "icon": "./assets/icon.png"
+    "name": "Food App",
+    "android": {
+      "package": "com.initials.elgyan",
+      "versionCode": 1,
+      "permissions": [],
+      "icon": "./assets/icon.png"
     },
     "slug": "react",
     "privacy": "public",
@@ -31,6 +31,7 @@
     ],
     "ios": {
       "supportsTablet": true
-    }
+    },
+    "description": ""
   }
 }

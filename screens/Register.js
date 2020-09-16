@@ -7,7 +7,7 @@ import {
   Image,
   ScrollView,
   Dimensions,
-  TouchableOpacity,
+  
 } from "react-native";
 const { width } = Dimensions.get("window");
 
@@ -131,7 +131,7 @@ export default class Register extends Component {
                 <ActivityIndicator size="small" color="white" />
               ) : (
                 <Text bold white center>
-                  Login
+                  Register
                 </Text>
               )}
             </Button>
@@ -144,12 +144,7 @@ export default class Register extends Component {
 
       
 
-        <Text 
-        style={styles.elgyan} center h2 light>
-          
-            Powered By Elscript Technology Pvt. Ltd.
-          </Text>
-       
+      
       </KeyboardAvoidingView>
         </ScrollView>
 

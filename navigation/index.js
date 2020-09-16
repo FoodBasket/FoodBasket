@@ -26,13 +26,16 @@ import SchoolDetails from "../screens/SchoolDetails";
 import DueDetails from "../screens/DueDetails";
 import BusDetails from "../screens/BusDetails";
 import BusRoute from "../screens/BusRoute";
-import ImageView from "../screens/ImageView";
 import AbsentDetails from "../screens/AbsentDetails";
 import Leave from "../screens/Leave";
 import Notification from "../screens/Notification";
 import NotificationDetails from "../screens/NotificationDetails";
 import AboutApp from "../screens/AboutApp";
 import Register from "../screens/Register";
+import ItemList from "../screens/ItemList";
+import OverView from "../screens/OverView";
+import Cart from "../screens/Cart";
+import OrderDetail from "../screens/OrderDetail";
 
 const screens = createStackNavigator(
   {
@@ -59,13 +62,16 @@ const screens = createStackNavigator(
     DueDetails,
     BusDetails,
     BusRoute,
-    ImageView,
     AbsentDetails,
     Leave,
     Notification,
     NotificationDetails,
     AboutApp,
     Register,
+    ItemList,
+    OverView,
+    Cart,
+    OrderDetail,
   },
   {
     headerLayoutPreset: 'center',
