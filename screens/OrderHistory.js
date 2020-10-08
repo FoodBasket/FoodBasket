@@ -8,13 +8,10 @@ import {
   View,
 } from "react-native";
 const { width } = Dimensions.get("window");
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
+import {  Text } from "../components";
 
-
-import { Card } from "../components";
-import { Button, Block, Text } from "../components";
-import StarRating from '../components/StarRating';
-import { theme } from "../constants";
 
 
 
@@ -24,9 +21,10 @@ export default class ItemList extends Component {
     
   };
 
-  static navigationOptions = () => ({
-    title: 'Category',
+  static navigationOptions=({navigation}) => ({
+    title: 'Order History',
     headerTintColor: 'black',
+
     headerStyle: {
       backgroundColor: 'white'
     },
@@ -45,7 +43,7 @@ export default class ItemList extends Component {
           
           <View style={styles.cardsWrapper}>
       
-          <TouchableOpacity onPress={() => navigation.navigate("Overview")}>
+          <TouchableOpacity >
         <View style={styles.card}>
           <View style={styles.cardImgWrapper}>
             <Image
@@ -56,18 +54,46 @@ export default class ItemList extends Component {
           </View>
           <View style={styles.cardInfo}>
             <Text style={styles.cardTitle}>Amazing Food Place</Text>
-            <StarRating ratings={4}  />
             <Text style={styles.cardDetails}>
-              Amazing description for this amazing place{"\n"}
-              <Text bold primary style={{fontSize:12,paddingTop:15,}}>
-                  Rs 200
+              {"\n"}
+              <Text bold primary style={{fontSize:12,paddingTop:15,color:'#7D3C3C',}}>
+                 Total: Rs 400 (200 X 2){"\n"}
             </Text>
+            <Text bold  style={{fontSize:14,paddingTop:15,color:'green'}}>
+                  Status: Completed
+            </Text>
+
             </Text>
           </View>
         </View>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => navigation.navigate("Overview")}>
+        <TouchableOpacity >
+        <View style={styles.card}>
+          <View style={styles.cardImgWrapper}>
+            <Image
+              source={require('../assets/foodimage/food2.jpg')}
+              resizeMode="cover"
+              style={styles.cardImg}
+            />
+          </View>
+          <View style={styles.cardInfo}>
+            <Text style={styles.cardTitle}>Amazing Food Place</Text>
+            <Text style={styles.cardDetails}>
+              {"\n"}
+              <Text bold primary style={{fontSize:12,paddingTop:15,color:'#7D3C3C',}}>
+                 Total: Rs 400 (200 X 2){"\n"}
+            </Text>
+            <Text bold secondary style={{fontSize:14,paddingTop:15,color:'red'}}>
+                  Status: Failed
+            </Text>
+
+            </Text>
+          </View>
+        </View>
+        </TouchableOpacity>
+
+        <TouchableOpacity >
         <View style={styles.card}>
           <View style={styles.cardImgWrapper}>
             <Image
@@ -78,18 +104,21 @@ export default class ItemList extends Component {
           </View>
           <View style={styles.cardInfo}>
             <Text style={styles.cardTitle}>Amazing Food Place</Text>
-            <StarRating ratings={4}  />
             <Text style={styles.cardDetails}>
-              Amazing description for this amazing place{"\n"}
-              <Text bold primary style={{fontSize:12,paddingTop:15,}}>
-                  Rs 200
+              {"\n"}
+              <Text bold primary style={{fontSize:12,paddingTop:15,color:'#7D3C3C',}}>
+                 Total: Rs 400 (200 X 2){"\n"}
             </Text>
+            <Text bold secondary style={{fontSize:14,paddingTop:15,color:'green'}}>
+                  Status: Completed
+            </Text>
+
             </Text>
           </View>
         </View>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => navigation.navigate("Overview")}>
+        <TouchableOpacity >
         <View style={styles.card}>
           <View style={styles.cardImgWrapper}>
             <Image
@@ -100,18 +129,21 @@ export default class ItemList extends Component {
           </View>
           <View style={styles.cardInfo}>
             <Text style={styles.cardTitle}>Amazing Food Place</Text>
-            <StarRating ratings={4}  />
             <Text style={styles.cardDetails}>
-              Amazing description for this amazing place{"\n"}
-              <Text bold primary style={{fontSize:12,paddingTop:15,}}>
-                  Rs 200
+              {"\n"}
+              <Text bold primary style={{fontSize:12,paddingTop:15,color:'#7D3C3C',}}>
+                 Total: Rs 400 (200 X 2){"\n"}
             </Text>
+            <Text bold secondary style={{fontSize:14,paddingTop:15,color:'red'}}>
+                  Status: Failed
+            </Text>
+
             </Text>
           </View>
         </View>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => navigation.navigate("Overview")}>
+        <TouchableOpacity >
         <View style={styles.card}>
           <View style={styles.cardImgWrapper}>
             <Image
@@ -122,18 +154,21 @@ export default class ItemList extends Component {
           </View>
           <View style={styles.cardInfo}>
             <Text style={styles.cardTitle}>Amazing Food Place</Text>
-            <StarRating ratings={4}  />
             <Text style={styles.cardDetails}>
-              Amazing description for this amazing place{"\n"}
-              <Text bold primary style={{fontSize:12,paddingTop:15,}}>
-                  Rs 200
+              {"\n"}
+              <Text bold primary style={{fontSize:12,paddingTop:15,color:'#7D3C3C',}}>
+                 Total: Rs 400 (200 X 2){"\n"}
             </Text>
+            <Text bold secondary style={{fontSize:14,paddingTop:15,color:'red'}}>
+                  Status: Failed
+            </Text>
+
             </Text>
           </View>
         </View>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => navigation.navigate("Overview")}>
+        <TouchableOpacity >
         <View style={styles.card}>
           <View style={styles.cardImgWrapper}>
             <Image
@@ -144,18 +179,21 @@ export default class ItemList extends Component {
           </View>
           <View style={styles.cardInfo}>
             <Text style={styles.cardTitle}>Amazing Food Place</Text>
-            <StarRating ratings={4}  />
             <Text style={styles.cardDetails}>
-              Amazing description for this amazing place{"\n"}
-              <Text bold primary style={{fontSize:12,paddingTop:15,}}>
-                  Rs 200
+              {"\n"}
+              <Text bold primary style={{fontSize:12,paddingTop:15,color:'#7D3C3C',}}>
+                 Total: Rs 400 (200 X 2){"\n"}
             </Text>
+            <Text bold secondary style={{fontSize:14,paddingTop:15,}}>
+                  Status: Pending
+            </Text>
+
             </Text>
           </View>
         </View>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => navigation.navigate("Overview")}>
+        <TouchableOpacity >
         <View style={styles.card}>
           <View style={styles.cardImgWrapper}>
             <Image
@@ -166,18 +204,21 @@ export default class ItemList extends Component {
           </View>
           <View style={styles.cardInfo}>
             <Text style={styles.cardTitle}>Amazing Food Place</Text>
-            <StarRating ratings={4}  />
             <Text style={styles.cardDetails}>
-              Amazing description for this amazing place{"\n"}
-              <Text bold primary style={{fontSize:12,paddingTop:15,}}>
-                  Rs 200
+              {"\n"}
+              <Text bold primary style={{fontSize:12,paddingTop:15,color:'#7D3C3C',}}>
+                 Total: Rs 400 (200 X 2){"\n"}
             </Text>
+            <Text bold secondary style={{fontSize:14,paddingTop:15,}}>
+                  Status: Pending
+            </Text>
+
             </Text>
           </View>
         </View>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => navigation.navigate("Overview")}>
+        <TouchableOpacity >
         <View style={styles.card}>
           <View style={styles.cardImgWrapper}>
             <Image
@@ -188,18 +229,21 @@ export default class ItemList extends Component {
           </View>
           <View style={styles.cardInfo}>
             <Text style={styles.cardTitle}>Amazing Food Place</Text>
-            <StarRating ratings={4}  />
             <Text style={styles.cardDetails}>
-              Amazing description for this amazing place{"\n"}
-              <Text bold primary style={{fontSize:12,paddingTop:15,}}>
-                  Rs 200
+              {"\n"}
+              <Text bold primary style={{fontSize:12,paddingTop:15,color:'#7D3C3C',}}>
+                 Total: Rs 400 (200 X 2){"\n"}
             </Text>
+            <Text bold secondary style={{fontSize:14,paddingTop:15,}}>
+                  Status: Pending
+            </Text>
+
             </Text>
           </View>
         </View>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => navigation.navigate("Overview")}>
+        <TouchableOpacity >
         <View style={styles.card}>
           <View style={styles.cardImgWrapper}>
             <Image
@@ -210,18 +254,21 @@ export default class ItemList extends Component {
           </View>
           <View style={styles.cardInfo}>
             <Text style={styles.cardTitle}>Amazing Food Place</Text>
-            <StarRating ratings={4}  />
             <Text style={styles.cardDetails}>
-              Amazing description for this amazing place{"\n"}
-              <Text bold primary style={{fontSize:12,paddingTop:15,}}>
-                  Rs 200
+              {"\n"}
+              <Text bold primary style={{fontSize:12,paddingTop:15,color:'#7D3C3C',}}>
+                 Total: Rs 400 (200 X 2){"\n"}
             </Text>
+            <Text bold secondary style={{fontSize:14,paddingTop:15,}}>
+                  Status: Pending
+            </Text>
+
             </Text>
           </View>
         </View>
         </TouchableOpacity>
-
-     <TouchableOpacity onPress={() => navigation.navigate("Overview")}>
+      
+        <TouchableOpacity >
         <View style={styles.card}>
           <View style={styles.cardImgWrapper}>
             <Image
@@ -232,34 +279,15 @@ export default class ItemList extends Component {
           </View>
           <View style={styles.cardInfo}>
             <Text style={styles.cardTitle}>Amazing Food Place</Text>
-            <StarRating ratings={4}  />
             <Text style={styles.cardDetails}>
-              Amazing description for this amazing place{"\n"}
-              <Text bold primary style={{fontSize:12,paddingTop:15,}}>
-                  Rs 200
+              {"\n"}
+              <Text bold primary style={{fontSize:12,paddingTop:15,color:'#7D3C3C',}}>
+                 Total: Rs 400 (200 X 2){"\n"}
             </Text>
+            <Text bold secondary style={{fontSize:14,paddingTop:15,}}>
+                  Status: Pending
             </Text>
-          </View>
-        </View>
-        </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => navigation.navigate("Overview")}>
-        <View style={styles.card}>
-          <View style={styles.cardImgWrapper}>
-            <Image
-              source={require('../assets/foodimage/food11.jpg')}
-              resizeMode="cover"
-              style={styles.cardImg}
-            />
-          </View>
-          <View style={styles.cardInfo}>
-            <Text style={styles.cardTitle}>Amazing Food Place</Text>
-            <StarRating ratings={4}  />
-            <Text style={styles.cardDetails}>
-              Amazing description for this amazing place{"\n"}
-              <Text bold primary style={{fontSize:12,paddingTop:15,}}>
-                  Rs 200
-            </Text>
             </Text>
           </View>
         </View>
@@ -366,9 +394,11 @@ const styles = StyleSheet.create({
     },
     cardTitle: {
       fontWeight: 'bold',
+      paddingBottom:2,
     },
     cardDetails: {
       fontSize: 12,
       color: '#444',
+      paddingBottom:2,
     },
   });

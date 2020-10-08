@@ -6,10 +6,14 @@ import {
   Dimensions,
   TouchableOpacity,
   View,
+  Linking
 } from "react-native";
 const { width } = Dimensions.get("window");
 import StarRating from '../components/StarRating';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import NumericInput from 'react-native-numeric-input'
+
+
 
 
 import { Card, Block, Text } from "../components";
@@ -18,18 +22,31 @@ import { theme } from "../constants";
 
 
 
-export default class OverView extends Component {
+export default class Contact extends Component {
   state = {
     
   };
 
-  static navigationOptions = () => ({
-    title: 'Notification Detail',
+  static navigationOptions=({navigation}) => ({
+    title: 'Contact Detail',
     headerTintColor: 'black',
     headerStyle: {
       backgroundColor: 'white'
     },
   });
+
+  makeCall = () => {
+
+    let phoneNumber = '';
+
+    if (Platform.OS === 'android') {
+      phoneNumber = 'tel: 9860070721';
+    } else {
+      phoneNumber = 'telprompt:${+977 9860070721}';
+    }
+
+    Linking.openURL(phoneNumber);
+  };
 
 
 
@@ -45,17 +62,25 @@ export default class OverView extends Component {
           <View style={styles.Container}>
           <Image
         style={{ width: width, height: width/2 }}
-        source={require("../assets/notification/notification1.png")} 
+        source={require("../assets/restaurant.jpg")} 
         
          />
           </View>
+          <Block flex={false} row space="between" style={{padding:20}}>
+          <Text style={{fontSize:width/25}}  bold >Basic Info</Text>
+          </Block>
         <Block
           style={{
             borderBottomColor: '#E7E3E3',
             borderBottomWidth: 1,
           }}
         />
-        <Text center bold gray style={{padding:20,paddingBottom:4,fontSize:14}}>Notification Title Name</Text>
+        <Text  style={{paddingLeft:20,paddingBottom:4,fontSize:14}}>HOMESEEK FOODAPP</Text>
+        <Text  style={{paddingLeft:20,paddingBottom:4,fontSize:14}}>Phone: 9860070721</Text>
+        <Text  style={{paddingLeft:20,paddingBottom:4,fontSize:14}}>Email Id: restaurantemail@gmail.com</Text>
+        <Text  style={{paddingLeft:20,paddingBottom:4,fontSize:14}}>www.restaurantwebsite.com</Text>
+        <Block style={{paddingLeft:20}}>
+        </Block>
         <Block
           style={{
             borderBottomColor: '#E7E3E3',
@@ -63,16 +88,43 @@ export default class OverView extends Component {
             borderBottomWidth: 1,
           }}
         />
-        <Text style={{fontSize:14,padding:20,textAlign: 'justify',letterSpacing: 1,paddingBottom:width/6}}>
-        This part consists of description of the notification. Any notification detail can be shown in this part
-        This part consists of description of the notification. Any notification detail can be shown in this part
+        <Text style={{fontSize:14,padding:20,textAlign: 'justify',paddingBottom:width/10}}>
+          This section contains the description of the item. It should give the basic description of the item.
+          This is the overview of the item that we are going to sell the client. Client ther call or they can choose from the item.
         </Text>
+       
 
-        <View>
+        <Block flex={false}  row space="between" style={styles.categories}>
+                           
+        <TouchableOpacity onPress={this.makeCall}>
+
+                <Card row center middle shadow style={styles.category}>
+               
+                <MaterialIcons name="phone" size={17} color="#FF6347" />
+                    
+                  <Text bold  height={20}>
+                   {"  "} Call Us
+                  </Text>
+                </Card>
+              </TouchableOpacity>
+              
+              <TouchableOpacity onPress={() => Linking.openURL('mailto:prsdahal@gmail.com') }
+      title="prsdahal@gmail.com">
+
+                <Card gradient row center middle shadow style={styles.category}>
+               
+                <MaterialIcons name="mail" size={17} color="#FF6347" />
+                    
+                  <Text bold  height={20}>
+                   {"  "} Email Us
+                  </Text>
+                </Card>
+              </TouchableOpacity>
+            </Block>
         
 
-      
-        </View>
+     
+    
           
         
          
@@ -146,6 +198,5 @@ category: {
   maxHeight: (width - theme.sizes.padding * 12 - theme.sizes.base) / 2,
   backgroundColor: "white",
   borderRadius:15,
-  
 },
 });

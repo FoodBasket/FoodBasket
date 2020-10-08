@@ -16,8 +16,8 @@ import { Card } from "../components";
 import { Button, Block, Input, Text } from "../components";
 import { theme } from "../constants";
 
-const VALID_EMAIL = "mallas@food-app.com";
-const VALID_PASSWORD = "subscribe";
+const VALID_EMAIL = "homeseekfood@gmail.com";
+const VALID_PASSWORD = "homeseek123";
 
 
 export default class Login extends Component {
@@ -50,7 +50,7 @@ export default class Login extends Component {
     this.setState({ errors, loading: false });
 
     if (!errors.length) {
-      navigation.navigate("Browse");
+      navigation.navigate("Home");
     }
     if(errors.length)
     {
@@ -65,7 +65,8 @@ export default class Login extends Component {
     
 
     return (
-      <ScrollView style={{ marginVertical: theme.sizes.padding,backgroundColor: "#F6EEEE" }} >
+      <Block style={{backgroundColor :"#F6EEEE"}}>
+      <ScrollView style={{ marginVertical: theme.sizes.padding }} >
       <KeyboardAvoidingView style={styles.login} >
         
           <Text h1 center bold>
@@ -87,7 +88,7 @@ export default class Login extends Component {
         <Block padding={[0, theme.sizes.base * 0.6]}>
           <Block middle>
             <Input  
-              placeholder="Username or Email"
+              placeholder="Email"
               placeholderTextColor="#7D3C3C"
               error={hasErrors("email")}
               style={[styles.textInput, ]}
@@ -154,6 +155,7 @@ export default class Login extends Component {
        
       </KeyboardAvoidingView>
         </ScrollView>
+        </Block>
 
     );
   }
@@ -186,7 +188,6 @@ const styles = StyleSheet.create({
   
   textInput: {
     flex: 1,
-    marginTop: Platform.OS === 'ios' ? 0 : -12,
     paddingLeft: 10,
     borderRadius: 25,
     backgroundColor:'#F2F2F2',

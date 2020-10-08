@@ -10,6 +10,12 @@ import {
 const { width } = Dimensions.get("window");
 import StarRating from '../components/StarRating';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import NumericInput from 'react-native-numeric-input'
+import { SliderPicker } from 'react-native-slider-picker';
+
+
+
+
 
 
 import { Card, Block, Text } from "../components";
@@ -22,6 +28,11 @@ export default class OverView extends Component {
   state = {
     
   };
+  constructor(props) {
+    super(props);
+ 
+    this.state = { value: 500 };
+  }
 
   static navigationOptions = () => ({
     title: 'Item Detail',
@@ -49,7 +60,7 @@ export default class OverView extends Component {
         
          />
           </View>
-          <Block flex={false} row space="between" style={{padding:20}}>
+          <Block flex={false} row space="between" style={{padding:20,paddingBottom:15,}}>
           <Text style={{fontSize:width/25}}  bold >Overview</Text>
           <StarRating ratings={4}  />
           </Block>
@@ -59,9 +70,45 @@ export default class OverView extends Component {
             borderBottomWidth: 1,
           }}
         />
-        <Text bold gray style={{padding:20,paddingBottom:4,fontSize:14}}>Amazing Food Name</Text>
-        <Text  style={{paddingLeft:20,paddingBottom:4,fontSize:14}}>Spicy and Freshly Delivered</Text>
-        <Text primary style={{paddingLeft:20,fontSize:14}}>Rs 300</Text>
+        <Text bold gray style={{padding:20,paddingBottom:4,paddingTop:5,fontSize:14}}>Amazing Food Name</Text>
+        <Text  style={{paddingLeft:20,paddingBottom:10,fontSize:14}}>Spicy and Freshly Delivered</Text>
+        <Block row space="between">
+        <Block style={{paddingLeft:20}}>
+        <NumericInput
+        value={this.state.value} 
+        onChange={value => this.setState({value})}
+        initValue={1}
+        minValue={1} maxvalue={20} totalWidth={60} totalHeight={40}  type='up-down' iconSize={30} onChange={value => console.log(value)} />
+        </Block>
+        <Text bold right primary style={{paddingRight:30,paddingTop:15,fontSize:14}}>Price: Rs 300</Text>
+        </Block>
+
+        <View >
+ 
+        <SliderPicker 
+          maxValue={1000}
+          callback={position => {
+            this.setState({ value: position });
+          }}
+          defaultValue={this.state.value}
+          labelFontColor={"#6c7682"}
+          labelFontWeight={'600'}
+          showFill={true}
+          fillColor={'red'}
+          labelFontWeight={'bold'}
+          showNumberScale={true}
+          showSeparatorScale={true}
+          buttonBackgroundColor={'#fff'}
+          buttonBorderColor={"#6c7682"}
+          buttonBorderWidth={1}
+          scaleNumberFontWeight={'100'}
+          buttonDimensionsPercentage={4}
+          heightPercentage={1}
+          widthPercentage={80}
+        />
+        
+        <Text style={{paddingLeft:width/10}}>Distance: {this.state.value} (Find seller within {this.state.value} m)</Text>
+      </View>
         <Block
           style={{
             borderBottomColor: '#E7E3E3',
@@ -69,17 +116,19 @@ export default class OverView extends Component {
             borderBottomWidth: 1,
           }}
         />
-        <Text style={{fontSize:14,padding:20,textAlign: 'justify',letterSpacing: 1,paddingBottom:width/6}}>
+        <Text style={{fontSize:14,padding:20,textAlign: 'justify',letterSpacing: 1,paddingBottom:width/10}}>
           This section contains the description of the item. It should give the basic description of the item.
-          This is the overview of the item that we are going to sell the client. Client ther call or they can choose from the item.
         </Text>
-
-        <View>
         
 
-        <Block flex={false} padding row space="between" style={styles.categories}>
+     
+        <View>
+          
+
+
+        <Block flex={false}  row space="between" style={styles.categories}>
                            
-        <TouchableOpacity onPress={() => navigation.navigate("Cart")}>
+        <TouchableOpacity onPress={() => alert("Item Added to Cart! Please Check Cart for more details")}>
 
                 <Card row center middle shadow style={styles.category}>
                

@@ -65,6 +65,7 @@ export default class Register extends Component {
     
 
     return (
+      <Block style={{backgroundColor :"#F6EEEE"}}>
       <ScrollView style={{ marginVertical: theme.sizes.padding,backgroundColor: "#F6EEEE" }} >
       <KeyboardAvoidingView style={styles.login} >
         
@@ -147,6 +148,7 @@ export default class Register extends Component {
       
       </KeyboardAvoidingView>
         </ScrollView>
+        </Block>
 
     );
   }
@@ -179,7 +181,6 @@ const styles = StyleSheet.create({
   
   textInput: {
     flex: 1,
-    marginTop: Platform.OS === 'ios' ? 0 : -12,
     paddingLeft: 10,
     borderRadius: 25,
     backgroundColor:'#F2F2F2',

@@ -5,15 +5,17 @@ import {
   ScrollView,
   Dimensions,
   TouchableOpacity,
-  Linking,
+  View,
 } from "react-native";
 const { width } = Dimensions.get("window");
 
 
+
 import { Card } from "../components";
 import { Button, Block, Text } from "../components";
+import StarRating from '../components/StarRating';
 import { theme } from "../constants";
-
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 
 
@@ -22,14 +24,15 @@ export default class Notification extends Component {
     
   };
 
-  static navigationOptions = () => ({
-    title: 'Notification',
-    headerTintColor: 'white',
+  static navigationOptions=({navigation}) => ({
+    title: 'Notifications',
+    headerTitleStyle: { alignSelf: 'center' },
+    headerTintColor: 'black',
     headerStyle: {
-      backgroundColor: '#2BDA8E'
+      backgroundColor: 'white'
     },
+  
   });
-
 
 
 
@@ -40,79 +43,201 @@ export default class Notification extends Component {
     
 
     return (
-      <ScrollView showsVerticalScrollIndicator={false} style={{ paddingVertical: theme.sizes.base * 2 }}>
-     
-      <TouchableOpacity onPress={() => navigation.navigate("NotificationDetails")}>
-          <Card style={styles.cardstyle} left middle shadow>
-          <Text  caption bold style={styles.header}>Date: 17 July, 2020</Text>
-              <Text  caption bold style={styles.notificationtitle}>Holiday on Bijaya Dashami</Text>
-              <Text  caption  style={styles.aboutus}>
-               In the occassion of Vijaya Dashami, we have decided to provide 10 days holiday. 
-               Hope you enjoy the festival with your family.
-               
-              </Text>
-          </Card>   
-     </TouchableOpacity>
+        <ScrollView style={styles.container}>
+          
+          <View style={styles.cardsWrapper}>
+      
+          <TouchableOpacity onPress={() => navigation.navigate("NotificationDetails")}>
+        <View style={styles.card}>
+          <View style={styles.cardImgWrapper}>
+            <Image
+              source={require('../assets/notification/notification1.png')}
+              resizeMode="cover"
+              style={styles.cardImg}
+            />
+          </View>
+          <View style={styles.cardInfo}>
+            <Text style={styles.cardTitle}>Notification Title 1</Text>
+            <Text style={styles.cardDetails}>
+              This part consists of description of the notification. It can include offers,.......
+              
+            </Text>
+          </View>
+        </View>
+        </TouchableOpacity>
 
-     <TouchableOpacity onPress={() => navigation.navigate("NotificationDetails")}>
-          <Card style={styles.cardstyle} left middle shadow>
-          <Text  caption bold style={styles.header}>Date: 17 July, 2020</Text>
-              <Text  caption bold style={styles.notificationtitle}>Holiday on Bijaya Dashami</Text>
-              <Text  caption  style={styles.aboutus}>
-               In the occassion of Vijaya Dashami, we have decided to provide 10 days holiday. 
-               Hope you enjoy the festival with your family.
-               
-              </Text>
-          </Card>   
-     </TouchableOpacity>
-     <TouchableOpacity onPress={() => navigation.navigate("NotificationDetails")}>
-          <Card style={styles.cardstyle} left middle shadow>
-          <Text  caption bold style={styles.header}>Date: 17 July, 2020</Text>
-              <Text  caption bold style={styles.notificationtitle}>Holiday on Bijaya Dashami</Text>
-              <Text  caption  style={styles.aboutus}>
-               In the occassion of Vijaya Dashami, we have decided to provide 10 days holiday. 
-               Hope you enjoy the festival with your family.
-               
-              </Text>
-          </Card>   
-     </TouchableOpacity>
-     <TouchableOpacity onPress={() => navigation.navigate("NotificationDetails")}>
-          <Card style={styles.cardstyle} left middle shadow>
-          <Text  caption bold style={styles.header}>Date: 17 July, 2020</Text>
-              <Text  caption bold style={styles.notificationtitle}>Holiday on Bijaya Dashami</Text>
-              <Text  caption  style={styles.aboutus}>
-               In the occassion of Vijaya Dashami, we have decided to provide 10 days holiday. 
-               Hope you enjoy the festival with your family.
-               
-              </Text>
-          </Card>   
-     </TouchableOpacity>
-     <TouchableOpacity onPress={() => navigation.navigate("NotificationDetails")}>
-          <Card style={styles.cardstyle} left middle shadow>
-          <Text  caption bold style={styles.header}>Date: 17 July, 2020</Text>
-              <Text  caption bold style={styles.notificationtitle}>Holiday on Bijaya Dashami</Text>
-              <Text  caption  style={styles.aboutus}>
-               In the occassion of Vijaya Dashami, we have decided to provide 10 days holiday. 
-               Hope you enjoy the festival with your family.
-               
-              </Text>
-          </Card>   
-     </TouchableOpacity>
-     <TouchableOpacity onPress={() => navigation.navigate("NotificationDetails")}>
-          <Card style={styles.cardstyle} left middle shadow>
-          <Text  caption bold style={styles.header}>Date: 17 July, 2020</Text>
-              <Text  caption bold style={styles.notificationtitle}>Holiday on Bijaya Dashami</Text>
-              <Text  caption  style={styles.aboutus}>
-               In the occassion of Vijaya Dashami, we have decided to provide 10 days holiday. 
-               Hope you enjoy the festival with your family.
-               
-              </Text>
-          </Card>   
-     </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate("NotificationDetails")}>
+        <View style={styles.card}>
+          <View style={styles.cardImgWrapper}>
+            <Image
+              source={require('../assets/notification/notification2.png')}
+              resizeMode="cover"
+              style={styles.cardImg}
+            />
+          </View>
+          <View style={styles.cardInfo}>
+          <Text style={styles.cardTitle}>Notification Title 2</Text>
+          <Text style={styles.cardDetails}>
+              This part consists of description of the notification. It can include offers,.......
+              
+            </Text>
+          </View>
+        </View>
+        </TouchableOpacity>
 
+        <TouchableOpacity onPress={() => navigation.navigate("NotificationDetails")}>
+        <View style={styles.card}>
+          <View style={styles.cardImgWrapper}>
+            <Image
+              source={require('../assets/notification/notification.jpg')}
+              resizeMode="cover"
+              style={styles.cardImg}
+            />
+          </View>
+          <View style={styles.cardInfo}>
+          <Text style={styles.cardTitle}>Notification Title 3</Text>
+          <Text style={styles.cardDetails}>
+              This part consists of description of the notification. It can include offers,.......
+              
+            </Text>
+          </View>
+        </View>
+        </TouchableOpacity>
 
-         
+        <TouchableOpacity onPress={() => navigation.navigate("NotificationDetails")}>
+        <View style={styles.card}>
+          <View style={styles.cardImgWrapper}>
+            <Image
+              source={require('../assets/notification/notification1.png')}
+              resizeMode="cover"
+              style={styles.cardImg}
+            />
+          </View>
+          <View style={styles.cardInfo}>
+          <Text style={styles.cardTitle}>Notification Title 4</Text>
+          <Text style={styles.cardDetails}>
+              This part consists of description of the notification. It can include offers,.......
+              
+            </Text>
+          </View>
+        </View>
+        </TouchableOpacity>
 
+        <TouchableOpacity onPress={() => navigation.navigate("NotificationDetails")}>
+        <View style={styles.card}>
+          <View style={styles.cardImgWrapper}>
+            <Image
+              source={require('../assets/notification/notification2.png')}
+              resizeMode="cover"
+              style={styles.cardImg}
+            />
+          </View>
+          <View style={styles.cardInfo}>
+          <Text style={styles.cardTitle}>Notification Title 5</Text>
+          <Text style={styles.cardDetails}>
+              This part consists of description of the notification. It can include offers,.......
+              
+            </Text>
+          </View>
+        </View>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => navigation.navigate("NotificationDetails")}>
+        <View style={styles.card}>
+          <View style={styles.cardImgWrapper}>
+            <Image
+              source={require('../assets/notification/notification.jpg')}
+              resizeMode="cover"
+              style={styles.cardImg}
+            />
+          </View>
+          <View style={styles.cardInfo}>
+          <Text style={styles.cardTitle}>Notification Title 6</Text>
+          <Text style={styles.cardDetails}>
+              This part consists of description of the notification. It can include offers,.......
+              
+            </Text>
+          </View>
+        </View>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => navigation.navigate("NotificationDetails")}>
+        <View style={styles.card}>
+          <View style={styles.cardImgWrapper}>
+            <Image
+              source={require('../assets/notification/notification1.png')}
+              resizeMode="cover"
+              style={styles.cardImg}
+            />
+          </View>
+          <View style={styles.cardInfo}>
+          <Text style={styles.cardTitle}>Notification Title 7</Text>
+          <Text style={styles.cardDetails}>
+              This part consists of description of the notification. It can include offers,.......
+              
+            </Text>
+          </View>
+        </View>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => navigation.navigate("NotificationDetails")}>
+        <View style={styles.card}>
+          <View style={styles.cardImgWrapper}>
+            <Image
+              source={require('../assets/notification/notification2.png')}
+              resizeMode="cover"
+              style={styles.cardImg}
+            />
+          </View>
+          <View style={styles.cardInfo}>
+          <Text style={styles.cardTitle}>Notification Title 8</Text>
+          <Text style={styles.cardDetails}>
+              This part consists of description of the notification. It can include offers,.......
+              
+            </Text>
+          </View>
+        </View>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => navigation.navigate("NotificationDetails")}>
+        <View style={styles.card}>
+          <View style={styles.cardImgWrapper}>
+            <Image
+              source={require('../assets/notification/notification.jpg')}
+              resizeMode="cover"
+              style={styles.cardImg}
+            />
+          </View>
+          <View style={styles.cardInfo}>
+          <Text style={styles.cardTitle}>Notification Title 9</Text>
+          <Text style={styles.cardDetails}>
+              This part consists of description of the notification. It can include offers,.......
+              
+            </Text>
+          </View>
+        </View>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => navigation.navigate("NotificationDetails")}>
+        <View style={styles.card}>
+          <View style={styles.cardImgWrapper}>
+            <Image
+              source={require('../assets/foodimage/food11.jpg')}
+              resizeMode="cover"
+              style={styles.cardImg}
+            />
+          </View>
+          <View style={styles.cardInfo}>
+          <Text style={styles.cardTitle}>Notification Title 10</Text>
+          <Text style={styles.cardDetails}>
+              This part consists of description of the notification. It can include offers,.......
+              
+            </Text>
+          </View>
+        </View>
+        </TouchableOpacity>
+      </View>
+                   
       </ScrollView>
     );
   }
@@ -120,74 +245,102 @@ export default class Notification extends Component {
 
 
 
-
 const styles = StyleSheet.create({
-  Container: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    flex: 1,
-    margin: 10
-  },
-
-  category: {
-    // this should be dynamic based on screen width
-    minWidth: (width - theme.sizes.padding * 2.4 - theme.sizes.base) / 2,
-    maxWidth: (width - theme.sizes.padding * 2.4 - theme.sizes.base) / 2,
-    maxHeight: (width - theme.sizes.padding * 12 - theme.sizes.base) / 2,
-    backgroundColor: "#eff7f4",
-    borderRadius:15,
-    
-  },
-  categories: {
-    flexWrap: "wrap",
-    paddingHorizontal: theme.sizes.base * 2,
-    marginBottom: theme.sizes.base * 3.5
-    
-  },
-
-  circleImageLayout: {
-    width: 110,
-    height: 110,
-    borderRadius: 200 / 2
-  },
-
-  text: {
-    fontSize: 25,
-    textAlign: 'center',
-    margin: 30
-  },
-  portfolio: {
-    fontSize: 19,
-    margin:5,
-  },
-  header: {
-    fontSize: width/30,
-    margin:3,
-    color:'#DF494E',
-  },
-  aboutus: {
-    fontSize: width/28,
-    margin:5,
-    textAlign: 'justify',
-    lineHeight:25,
-  },
-  notificationtitle: {
-    fontSize: width/25,
-    margin:3,
-    textAlign: 'justify',
-  },
-  shadow: {
-    shadowColor: 'black',
-    shadowOpacity: 5,
-    elevation:3,
-    shadowRadius: 15 ,
-    shadowOffset : { width: 1, height: 13},
-  },
-  cardstyle: {
-    margin:6,
-    backgroundColor: "#eff7f4",
-    borderRadius:20,
-
-
-},
-});
+    container: {
+      flex: 1,
+    },
+    sliderContainer: {
+      height: 200,
+      width: '90%',
+      marginTop: 10,
+      justifyContent: 'center',
+      alignSelf: 'center',
+      borderRadius: 8,
+    },
+  
+    wrapper: {},
+  
+    slide: {
+      flex: 1,
+      justifyContent: 'center',
+      backgroundColor: 'transparent',
+      borderRadius: 8,
+    },
+    sliderImage: {
+      height: '100%',
+      width: '100%',
+      alignSelf: 'center',
+      borderRadius: 8,
+    },
+    categoryContainer: {
+      flexDirection: 'row',
+      width: '90%',
+      alignSelf: 'center',
+      marginTop: 25,
+      marginBottom: 10,
+    },
+    categoryBtn: {
+      flex: 1,
+      width: '30%',
+      marginHorizontal: 0,
+      alignSelf: 'center',
+    },
+    categoryIcon: {
+      borderWidth: 0,
+      alignItems: 'center',
+      justifyContent: 'center',
+      alignSelf: 'center',
+      width: 70,
+      height: 70,
+      backgroundColor: '#fdeae7' /* '#FF6347' */,
+      borderRadius: 50,
+    },
+    categoryBtnTxt: {
+      alignSelf: 'center',
+      marginTop: 5,
+      color: '#de4f35',
+    },
+    cardsWrapper: {
+      marginTop: 20,
+      width: '90%',
+      alignSelf: 'center',
+    },
+    card: {
+      height: 100,
+      marginVertical: 10,
+      flexDirection: 'row',
+      shadowColor: '#999',
+      shadowOffset: {width: 0, height: 1},
+      shadowOpacity: 0.8,
+      shadowRadius: 2,
+      elevation: 5,
+    },
+    cardImgWrapper: {
+      flex: 1,
+    },
+    cardImg: {
+      height: '100%',
+      width: '100%',
+      alignSelf: 'center',
+      borderRadius: 8,
+      borderBottomRightRadius: 0,
+      borderTopRightRadius: 0,
+    },
+    cardInfo: {
+      flex: 2,
+      paddingLeft: 5,
+      borderColor: '#ccc',
+      borderWidth: 1,
+      borderLeftWidth: 0,
+      borderBottomRightRadius: 8,
+      borderTopRightRadius: 8,
+      backgroundColor: '#fff',
+    },
+    cardTitle: {
+      fontWeight: 'bold',
+    },
+    cardDetails: {
+      fontSize: 12,
+      color: '#444',
+    },
+  });

@@ -6,13 +6,18 @@ import {
   Dimensions,
   TouchableOpacity,
   View,
+  
 } from "react-native";
 const { width } = Dimensions.get("window");
 import StarRating from '../components/StarRating';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 
-import { Card, Block, Text } from "../components";
+
+
+
+
+import { Card, Button, Text } from "../components";
 import { theme } from "../constants";
 
 
@@ -24,7 +29,7 @@ export default class OverView extends Component {
   };
 
   static navigationOptions = () => ({
-    title: 'Notification Detail',
+    title: 'Item Detail',
     headerTintColor: 'black',
     headerStyle: {
       backgroundColor: 'white'
@@ -44,34 +49,54 @@ export default class OverView extends Component {
      
           <View style={styles.Container}>
           <Image
-        style={{ width: width, height: width/2 }}
-        source={require("../assets/notification/notification1.png")} 
+        style={{ width: width/4, height: width/4 }}
+        source={require("../assets/images/location.png")} 
         
          />
           </View>
-        <Block
-          style={{
-            borderBottomColor: '#E7E3E3',
-            borderBottomWidth: 1,
-          }}
-        />
-        <Text center bold gray style={{padding:20,paddingBottom:4,fontSize:14}}>Notification Title Name</Text>
-        <Block
-          style={{
-            borderBottomColor: '#E7E3E3',
-            paddingTop:15,
-            borderBottomWidth: 1,
-          }}
-        />
-        <Text style={{fontSize:14,padding:20,textAlign: 'justify',letterSpacing: 1,paddingBottom:width/6}}>
-        This part consists of description of the notification. Any notification detail can be shown in this part
-        This part consists of description of the notification. Any notification detail can be shown in this part
-        </Text>
+          <Text  center style={{paddingTop:30,paddingBottom:4,fontSize:14}}>Please Select your location</Text>
+         <Text>{"\n"}</Text>
+        
+         <TouchableOpacity onPress={() => alert("Your location is changed to Sallaghari-16, Bhaktapur")}>
+          <Card shadow style={styles.category}>
+        <Text center>
+        
+          Sallaghari-16, Bhaktapur{"          "}
+          <MaterialIcons right name="location-on" size={17} color="#FF6347" />
+          </Text>      
+          </Card>
+          </TouchableOpacity>
 
-        <View>
+          <TouchableOpacity onPress={() => alert("Your location is changed to Kadaghari-17, Kathmandu ")}>
+          <Card shadow style={styles.category}>
+          <Text center>Kadaghari-17, Kathmandu</Text>      
+          </Card>
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={() => alert("Your location is changed to New Baneshwor-15, Kathmandu ")}>
+          <Card shadow style={styles.category}>
+          <Text center>New Baneshwor-15, Kathmandu</Text>      
+          </Card>
+          </TouchableOpacity>
+   
+   <View style={{paddingTop:30}}>
+        <Button  style={styles.loginbutton} gradient >
+           <Text style={{color:'white'}} center>Choose Location</Text> 
+        </Button>
+   </View>
+
+
+ 
+ 
         
 
-      
+     
+        <View>
+          
+
+
+
+          
         </View>
           
         
@@ -89,7 +114,7 @@ const styles = StyleSheet.create({
   Container: {
     justifyContent: 'center',
     alignItems: 'center',
-    paddingTop:0,
+    paddingTop:10,
     
   },
 
@@ -139,13 +164,16 @@ categories: {
   marginBottom: theme.sizes.base * 3.5
   
 },
+loginbutton: {
+    padding:20,
+    paddingLeft:width/6,
+    paddingRight:width/6,
+    borderRadius: width/20,
+    margin:1,
+    
+  },
 category: {
-  // this should be dynamic based on screen width
-  minWidth: (width - theme.sizes.padding * 2.4 - theme.sizes.base) / 2,
-  maxWidth: (width - theme.sizes.padding * 2.4 - theme.sizes.base) / 2,
-  maxHeight: (width - theme.sizes.padding * 12 - theme.sizes.base) / 2,
-  backgroundColor: "white",
-  borderRadius:15,
+
   
 },
 });

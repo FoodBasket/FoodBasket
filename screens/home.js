@@ -18,18 +18,26 @@ const { width, height } = Dimensions.get("window");
 
 
 
-class Browse extends Component {
+class Home extends Component {
  
-  
   static navigationOptions=({navigation}) => ({
-    
-    title: "Homeseek",
-    headerLeft: null,
+
+    title: 'Homeseek',
+    headerTitleStyle: { alignSelf: 'center' },
+    headerTintColor: 'black',
+    headerStyle: {
+      backgroundColor: 'white',
+    },
+    headerLeft:
+    ( 
+    <MaterialIcons middle style={{padding:10,paddingTop:15}} name="menu" size={25} color="black" onPress={()=>navigation.openDrawer()}/>
+
+    ),
     headerRight: (
-      <Block middle  row space="between">
-         
-        
+      <Block middle  row space="between"> 
+         <TouchableOpacity onPress={() => navigation.navigate("Location")}>
         <MaterialIcons middle style={{padding:10,paddingTop:15}} name="location-on" size={25} color="#FF6347" />
+        </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate("Notification")}>
         <MaterialIcons   style={{padding:10,paddingTop:15}} name="notifications"  size={25} color="#FF6347" />
         </TouchableOpacity>
@@ -37,7 +45,7 @@ class Browse extends Component {
         <MaterialIcons   style={{padding:10,paddingTop:15}} name="shopping-cart"  size={25} color="#FF6347" />
         </TouchableOpacity>
       </Block>
-    )
+    ),
   });
   scrollX = new Animated.Value(0);
 
@@ -124,7 +132,18 @@ class Browse extends Component {
           {this.renderSteps()}
           
         </Block>
-
+        <Text h3 center light>
+          
+           Category
+           
+       </Text>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
+          scrollEventThrottle={16}
+        >
+          
         <Block style={{paddingTop:10}} flex={false} row space="between" >
           <View style={styles.Container}>
 
@@ -159,7 +178,30 @@ class Browse extends Component {
 
             <Text style={styles.text}>Lunch</Text>
           </View>
+          <View style={styles.Container}>
+
+          <TouchableOpacity onPress={() => navigation.navigate("ItemList")}>
+          <Image
+              source={require("../assets/foodimage/category4.jpg")} 
+              style={styles.circleImageLayout}
+            />
+         </TouchableOpacity>
+
+            <Text style={styles.text}>Drinks</Text>
+          </View>
+          <View style={styles.Container}>
+
+          <TouchableOpacity onPress={() => navigation.navigate("ItemList")}>
+          <Image
+              source={require("../assets/foodimage/category5.jpg")} 
+              style={styles.circleImageLayout}
+            />
+         </TouchableOpacity>
+
+            <Text style={styles.text}>Ice Cream</Text>
+          </View>
          </Block>
+         </ScrollView>
         <Text h3 center light>
            {"\n"}
            Our Special
@@ -170,7 +212,7 @@ class Browse extends Component {
 
        <Block flex={false} row space="between" style={styles.categories}>
          
-               <TouchableOpacity onPress={() => navigation.navigate("OverView")}>
+               <TouchableOpacity onPress={() => navigation.navigate("Overview")}>
 
                 <Card  shadow style={styles.category}>
                
@@ -187,7 +229,7 @@ class Browse extends Component {
                 </Card>
               </TouchableOpacity>
 
-              <TouchableOpacity onPress={() => navigation.navigate("OverView")}>
+              <TouchableOpacity onPress={() => navigation.navigate("Overview")}>
                 <Card  shadow style={styles.category}>
                
                 <Image style={styles.category_image} source={require('../assets/foodimage/food2.jpg')} />
@@ -203,7 +245,7 @@ class Browse extends Component {
                 </Card>
               </TouchableOpacity>
 
-              <TouchableOpacity onPress={() => navigation.navigate("OverView")}>
+              <TouchableOpacity onPress={() => navigation.navigate("Overview")}>
                 <Card  shadow style={styles.category}>
                
                 <Image style={styles.category_image} source={require('../assets/foodimage/food3.jpg')} />
@@ -219,7 +261,7 @@ class Browse extends Component {
                 </Card>
               </TouchableOpacity>
 
-              <TouchableOpacity onPress={() => navigation.navigate("OverView")}>
+              <TouchableOpacity onPress={() => navigation.navigate("Overview")}>
                 <Card shadow style={styles.category}>
                
                 <Image style={styles.category_image} source={require('../assets/foodimage/food4.jpg')} />
@@ -259,7 +301,7 @@ class Browse extends Component {
 
 <Block flex={false} row space="between" style={styles.categories}>
          
-         <TouchableOpacity onPress={() => navigation.navigate("OverView")}>
+         <TouchableOpacity onPress={() => navigation.navigate("Overview")}>
 
           <Card  shadow style={styles.category}>
          
@@ -276,7 +318,7 @@ class Browse extends Component {
           </Card>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => navigation.navigate("OverView")}>
+        <TouchableOpacity onPress={() => navigation.navigate("Overview")}>
           <Card  shadow style={styles.category}>
          
           <Image style={styles.category_image} source={require('../assets/foodimage/food10.jpg')} />
@@ -292,7 +334,7 @@ class Browse extends Component {
           </Card>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => navigation.navigate("OverView")}>
+        <TouchableOpacity onPress={() => navigation.navigate("Overview")}>
           <Card  shadow style={styles.category}>
          
           <Image style={styles.category_image} source={require('../assets/foodimage/food11.jpg')} />
@@ -308,7 +350,7 @@ class Browse extends Component {
           </Card>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => navigation.navigate("OverView")}>
+        <TouchableOpacity onPress={() => navigation.navigate("Overview")}>
           <Card shadow style={styles.category}>
          
           <Image style={styles.category_image} source={require('../assets/foodimage/food12.jpg')} />
@@ -340,7 +382,7 @@ class Browse extends Component {
     </Text>
 
   <View style={styles.Container}>
-  <TouchableOpacity onPress={() => navigation.navigate("OverView")}>
+  <TouchableOpacity onPress={() => navigation.navigate("Overview")}>
           <Image
         style={{ width: width, height: width/1.9 }}
         source={require("../assets/foodimage/food5.jpg")} 
@@ -373,7 +415,7 @@ class Browse extends Component {
 <Text>{"\n"}</Text>
 
 <View style={styles.Container}>
-<TouchableOpacity onPress={() => navigation.navigate("OverView")}>
+<TouchableOpacity onPress={() => navigation.navigate("Overview")}>
           <Image
         style={{ width: width, height: width/1.9 }}
         source={require("../assets/foodimage/food6.jpg")} 
@@ -407,7 +449,7 @@ class Browse extends Component {
 <Text>{"\n"}</Text>
 
 <View style={styles.Container}>
-<TouchableOpacity onPress={() => navigation.navigate("OverView")}>
+<TouchableOpacity onPress={() => navigation.navigate("Overview")}>
 
           <Image
         style={{ width: width, height: width/1.9 }}
@@ -442,7 +484,7 @@ class Browse extends Component {
 <Text>{"\n"}</Text>
 
 <View style={styles.Container}>
-<TouchableOpacity onPress={() => navigation.navigate("OverView")}>
+<TouchableOpacity onPress={() => navigation.navigate("Overview")}>
           <Image
         style={{ width: width, height: width/1.9 }}
         source={require("../assets/foodimage/food8.jpg")} 
@@ -486,7 +528,7 @@ class Browse extends Component {
   }
 }
 
-Browse.defaultProps = {
+Home.defaultProps = {
   illustrations: [
     { id: 1, source: require("../assets/images/illustration_1.png") },
     { id: 2, source: require("../assets/images/illustration_2.png") },
@@ -494,7 +536,7 @@ Browse.defaultProps = {
   ]
 };
 
-export default Browse;
+export default Home;
 
 const styles = StyleSheet.create({
   stepsContainer: {

@@ -1,47 +1,28 @@
-import React from "react";
-import { StyleSheet } from "react-native";
-
-import { AppLoading } from "expo";
-import { Asset } from "expo-asset";
-
-import Navigation from "./navigation";
-import { Block } from "./components";
+import React, { useState } from 'react';
+import * as Font from 'expo-font';
+import { AppLoading } from 'expo';
+import Navigator from './routes/drawer';
 
 
+const getFonts = () => Font.loadAsync({
+  'nunito-regular': require('./assets/fonts/Nunito-Regular.ttf'),
+  'nunito-bold': require('./assets/fonts/Nunito-Bold.ttf'),
+});
 
-export default class App extends React.Component {
-  state = {
-    isLoadingComplete: false
-  }
+export default function App() {
+  const [fontsLoaded, setFontsLoaded] = useState(false);
 
-  handleResourcesAsync = async () => {
-    // we're caching all the images
-    // for better performance on the app
-
-    const cacheImages = images.map(image => {
-      return Asset.fromModule(image).downloadAsync();
-    });
-
-    return Promise.all(cacheImages);
-  };
-
-  render() {
-    if (!this.state.isLoadingComplete && !this.props.skipLoadingScreen) {
-      return (
-        <AppLoading
-          startAsync={this.handleResourcesAsync}
-          onError={error => console.warn(error)}
-          onFinish={() => this.setState({ isLoadingComplete: true })}
-        />
-      );
-    }
-
+  if (fontsLoaded) {
     return (
-      <Block white>
-        <Navigation />
-      </Block>
+      <Navigator />
     );
+  } else {
+    return (
+      <AppLoading 
+        startAsync={getFonts} 
+        onFinish={() => setFontsLoaded(true)} 
+      />
+    )
   }
-}
 
-const styles = StyleSheet.create({});
+}

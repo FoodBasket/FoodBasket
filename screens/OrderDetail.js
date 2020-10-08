@@ -43,15 +43,17 @@ export default class OverView extends Component {
       <ScrollView style={{backgroundColor:'white'}} showsVerticalScrollIndicator={true}>
      
           <View style={styles.Container}>
+           
+        <View>
           <Image
         style={{ width: width, height: width/2 }}
         source={require("../assets/foodimage/food3.jpg")} 
         
          />
+         </View>
           </View>
           <Block flex={false} row space="between" style={{padding:20}}>
-          <Text style={{fontSize:width/25}}  bold >Overview</Text>
-          <StarRating ratings={4}  />
+          <Text center style={{fontSize:width/25}}  bold >Confirm Order</Text>
           </Block>
         <Block
           style={{
@@ -62,7 +64,10 @@ export default class OverView extends Component {
         <Text bold gray style={{padding:20,paddingBottom:4,fontSize:14}}>Amazing Food Name</Text>
         <Text  style={{paddingLeft:20,paddingBottom:4,fontSize:14}}>Spicy and Freshly Delivered</Text>
         <Text  style={{paddingLeft:20,fontSize:14,paddingBottom:4}}>Qty: 1</Text>
+        <Text bold  style={{paddingLeft:20,fontSize:14}}>Delivery Location: Sallaghari-16, Bhaktapur</Text>
         <Text bold primary style={{paddingLeft:20,fontSize:14}}>Total: Rs 300</Text>
+
+
         
         <Block
           style={{
@@ -72,8 +77,7 @@ export default class OverView extends Component {
           }}
         />
         <Text style={{fontSize:14,padding:20,textAlign: 'justify',letterSpacing: 1,paddingBottom:width/6}}>
-          This section contains the description of the item. It should give the basic description of the item.
-          This is the overview of the item that we are going to sell the client. Client ther call or they can choose from the item.
+          By confirming the order you will notify the seller about your order.
         </Text>
 
   
@@ -117,6 +121,7 @@ const styles = StyleSheet.create({
   },
   loginbutton: {
     padding:20,
+    paddingTop:20,
     borderRadius: width/20,
     margin:1,
     

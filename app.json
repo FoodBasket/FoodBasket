@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "Food App",
-    "android": {
-      "package": "com.initials.elgyan",
-      "versionCode": 1,
-      "permissions": [],
-      "icon": "./assets/icon.png"
+    "name": "Homeseek",
+    "android":{
+   "package":"com.initials.homeseek",
+   "versionCode":1,
+   "permissions":[],
+   "icon": "./assets/icon.png"
     },
     "slug": "react",
     "privacy": "public",
@@ -31,7 +31,6 @@
     ],
     "ios": {
       "supportsTablet": true
-    },
-    "description": ""
+    }
   }
 }

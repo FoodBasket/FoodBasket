@@ -15,7 +15,7 @@ import { Card } from "../components";
 import { Button, Block, Text } from "../components";
 import StarRating from '../components/StarRating';
 import { theme } from "../constants";
-
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 
 
@@ -24,12 +24,13 @@ export default class Cart extends Component {
     
   };
 
-  static navigationOptions = () => ({
+  static navigationOptions=({navigation}) => ({
     title: 'Cart Details',
     headerTintColor: 'black',
     headerStyle: {
       backgroundColor: 'white'
     },
+  
   });
 
 
