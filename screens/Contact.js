@@ -106,7 +106,7 @@ export default class Contact extends Component {
                    {"  "} Call Us
                   </Text>
                 </Card>
-              </TouchableOpacity>
+        </TouchableOpacity>
               
               <TouchableOpacity onPress={() => Linking.openURL('mailto:prsdahal@gmail.com') }
       title="prsdahal@gmail.com">
