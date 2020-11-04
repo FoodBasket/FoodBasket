@@ -16,17 +16,20 @@ import { Button, Block, Text } from "../components";
 import StarRating from '../components/StarRating';
 import { theme } from "../constants";
 
-
+const url = 'https://foodapp.elscript.com/';
 
 
 export default class ItemList extends Component {
+
+  
   state = {
     
   };
 
-  static navigationOptions = () => ({
-    title: 'Category',
+  static navigationOptions = ({navigation}) => ({
+    title:navigation.getParam('category_name'),
     headerTintColor: 'black',
+    
     headerStyle: {
       backgroundColor: 'white'
     },
@@ -35,235 +38,51 @@ export default class ItemList extends Component {
 
 
   render() {
+    
     const { navigation } = this.props;
     const { loading, errors } = this.state;
     const hasErrors = key => (errors.includes(key) ? styles.s : null);
+    const category_name = this.props.navigation.getParam('category_name');
+    const ItemData = this.props.navigation.getParam('ItemData');
+    
     
 
     return (
         <ScrollView style={styles.container}>
-          
-          <View style={styles.cardsWrapper}>
+        <View style={styles.cardsWrapper}>
       
-          <TouchableOpacity onPress={() => navigation.navigate("Overview")}>
-        <View style={styles.card}>
-          <View style={styles.cardImgWrapper}>
-            <Image
-              source={require('../assets/foodimage/food1.jpg')}
-              resizeMode="cover"
-              style={styles.cardImg}
-            />
-          </View>
-          <View style={styles.cardInfo}>
-            <Text style={styles.cardTitle}>Amazing Food Place</Text>
-            <StarRating ratings={4}  />
-            <Text style={styles.cardDetails}>
-              Amazing description for this amazing place{"\n"}
-              <Text bold primary style={{fontSize:12,paddingTop:15,}}>
-                  Rs 200
-            </Text>
-            </Text>
-          </View>
-        </View>
-        </TouchableOpacity>
+       {ItemData.map((item, index) => (
+         
+         (item.category==category_name ? 
+          
 
-        <TouchableOpacity onPress={() => navigation.navigate("Overview")}>
+        <TouchableOpacity onPress={() => navigation.navigate("Overview",{ItemDetails: item})}>
         <View style={styles.card}>
           <View style={styles.cardImgWrapper}>
             <Image
-              source={require('../assets/foodimage/food3.jpg')}
+              source={{
+                uri: url+item.image_name,
+              }}
               resizeMode="cover"
               style={styles.cardImg}
             />
           </View>
           <View style={styles.cardInfo}>
-            <Text style={styles.cardTitle}>Amazing Food Place</Text>
-            <StarRating ratings={4}  />
+         <Text style={styles.cardTitle}>{item.item_name}</Text>
+            <StarRating ratings={(item.rating<4.5 ? 4 : 5 )}  />
             <Text style={styles.cardDetails}>
-              Amazing description for this amazing place{"\n"}
+            {item.description.substring(0, 60)+"...."}{"\n"}
               <Text bold primary style={{fontSize:12,paddingTop:15,}}>
-                  Rs 200
+                  {item.price}
             </Text>
             </Text>
           </View>
         </View>
         </TouchableOpacity>
+        : null
+        )
+          ))}
 
-        <TouchableOpacity onPress={() => navigation.navigate("Overview")}>
-        <View style={styles.card}>
-          <View style={styles.cardImgWrapper}>
-            <Image
-              source={require('../assets/foodimage/food4.jpg')}
-              resizeMode="cover"
-              style={styles.cardImg}
-            />
-          </View>
-          <View style={styles.cardInfo}>
-            <Text style={styles.cardTitle}>Amazing Food Place</Text>
-            <StarRating ratings={4}  />
-            <Text style={styles.cardDetails}>
-              Amazing description for this amazing place{"\n"}
-              <Text bold primary style={{fontSize:12,paddingTop:15,}}>
-                  Rs 200
-            </Text>
-            </Text>
-          </View>
-        </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => navigation.navigate("Overview")}>
-        <View style={styles.card}>
-          <View style={styles.cardImgWrapper}>
-            <Image
-              source={require('../assets/foodimage/food5.jpg')}
-              resizeMode="cover"
-              style={styles.cardImg}
-            />
-          </View>
-          <View style={styles.cardInfo}>
-            <Text style={styles.cardTitle}>Amazing Food Place</Text>
-            <StarRating ratings={4}  />
-            <Text style={styles.cardDetails}>
-              Amazing description for this amazing place{"\n"}
-              <Text bold primary style={{fontSize:12,paddingTop:15,}}>
-                  Rs 200
-            </Text>
-            </Text>
-          </View>
-        </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => navigation.navigate("Overview")}>
-        <View style={styles.card}>
-          <View style={styles.cardImgWrapper}>
-            <Image
-              source={require('../assets/foodimage/food6.jpg')}
-              resizeMode="cover"
-              style={styles.cardImg}
-            />
-          </View>
-          <View style={styles.cardInfo}>
-            <Text style={styles.cardTitle}>Amazing Food Place</Text>
-            <StarRating ratings={4}  />
-            <Text style={styles.cardDetails}>
-              Amazing description for this amazing place{"\n"}
-              <Text bold primary style={{fontSize:12,paddingTop:15,}}>
-                  Rs 200
-            </Text>
-            </Text>
-          </View>
-        </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => navigation.navigate("Overview")}>
-        <View style={styles.card}>
-          <View style={styles.cardImgWrapper}>
-            <Image
-              source={require('../assets/foodimage/food7.jpg')}
-              resizeMode="cover"
-              style={styles.cardImg}
-            />
-          </View>
-          <View style={styles.cardInfo}>
-            <Text style={styles.cardTitle}>Amazing Food Place</Text>
-            <StarRating ratings={4}  />
-            <Text style={styles.cardDetails}>
-              Amazing description for this amazing place{"\n"}
-              <Text bold primary style={{fontSize:12,paddingTop:15,}}>
-                  Rs 200
-            </Text>
-            </Text>
-          </View>
-        </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => navigation.navigate("Overview")}>
-        <View style={styles.card}>
-          <View style={styles.cardImgWrapper}>
-            <Image
-              source={require('../assets/foodimage/food8.jpg')}
-              resizeMode="cover"
-              style={styles.cardImg}
-            />
-          </View>
-          <View style={styles.cardInfo}>
-            <Text style={styles.cardTitle}>Amazing Food Place</Text>
-            <StarRating ratings={4}  />
-            <Text style={styles.cardDetails}>
-              Amazing description for this amazing place{"\n"}
-              <Text bold primary style={{fontSize:12,paddingTop:15,}}>
-                  Rs 200
-            </Text>
-            </Text>
-          </View>
-        </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => navigation.navigate("Overview")}>
-        <View style={styles.card}>
-          <View style={styles.cardImgWrapper}>
-            <Image
-              source={require('../assets/foodimage/food9.jpg')}
-              resizeMode="cover"
-              style={styles.cardImg}
-            />
-          </View>
-          <View style={styles.cardInfo}>
-            <Text style={styles.cardTitle}>Amazing Food Place</Text>
-            <StarRating ratings={4}  />
-            <Text style={styles.cardDetails}>
-              Amazing description for this amazing place{"\n"}
-              <Text bold primary style={{fontSize:12,paddingTop:15,}}>
-                  Rs 200
-            </Text>
-            </Text>
-          </View>
-        </View>
-        </TouchableOpacity>
-
-     <TouchableOpacity onPress={() => navigation.navigate("Overview")}>
-        <View style={styles.card}>
-          <View style={styles.cardImgWrapper}>
-            <Image
-              source={require('../assets/foodimage/food10.jpg')}
-              resizeMode="cover"
-              style={styles.cardImg}
-            />
-          </View>
-          <View style={styles.cardInfo}>
-            <Text style={styles.cardTitle}>Amazing Food Place</Text>
-            <StarRating ratings={4}  />
-            <Text style={styles.cardDetails}>
-              Amazing description for this amazing place{"\n"}
-              <Text bold primary style={{fontSize:12,paddingTop:15,}}>
-                  Rs 200
-            </Text>
-            </Text>
-          </View>
-        </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => navigation.navigate("Overview")}>
-        <View style={styles.card}>
-          <View style={styles.cardImgWrapper}>
-            <Image
-              source={require('../assets/foodimage/food11.jpg')}
-              resizeMode="cover"
-              style={styles.cardImg}
-            />
-          </View>
-          <View style={styles.cardInfo}>
-            <Text style={styles.cardTitle}>Amazing Food Place</Text>
-            <StarRating ratings={4}  />
-            <Text style={styles.cardDetails}>
-              Amazing description for this amazing place{"\n"}
-              <Text bold primary style={{fontSize:12,paddingTop:15,}}>
-                  Rs 200
-            </Text>
-            </Text>
-          </View>
-        </View>
-        </TouchableOpacity>
       </View>
                    
       </ScrollView>

@@ -17,7 +17,21 @@ import StarRating from '../components/StarRating';
 import { theme } from "../constants";
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
+const url = 'https://foodapp.elscript.com/';
+let motivationresponse=  fetch(url+'api/motivation', {
+            method: 'GET',
+        })
 
+            .then((motivationresponse) => motivationresponse.json())
+            .then((responseData) => {
+              MotivationData=responseData.MotivationData;
+                
+
+      })
+      .catch((error) =>{
+        console.error(error);
+      }) 
+      
 
 export default class Notification extends Component {
   state = {
@@ -34,6 +48,8 @@ export default class Notification extends Component {
   
   });
 
+  
+
 
 
   render() {
@@ -45,197 +61,30 @@ export default class Notification extends Component {
     return (
         <ScrollView style={styles.container}>
           
-          <View style={styles.cardsWrapper}>
-      
-          <TouchableOpacity onPress={() => navigation.navigate("NotificationDetails")}>
+       <View style={styles.cardsWrapper}>
+       {MotivationData.map((motivation, index) => (
+       <TouchableOpacity onPress={() => navigation.navigate("NotificationDetails",{motivation: motivation})}>
         <View style={styles.card}>
           <View style={styles.cardImgWrapper}>
-            <Image
-              source={require('../assets/notification/notification1.png')}
+            <Image source={{
+                uri: url+motivation.image_name,
+              }}
               resizeMode="cover"
               style={styles.cardImg}
             />
           </View>
           <View style={styles.cardInfo}>
-            <Text style={styles.cardTitle}>Notification Title 1</Text>
+       <Text style={styles.cardTitle}>{motivation.title.substring(0, 30)}</Text>
             <Text style={styles.cardDetails}>
-              This part consists of description of the notification. It can include offers,.......
+              
+              {motivation.description.substring(0, 100)}
               
             </Text>
           </View>
         </View>
         </TouchableOpacity>
+       ))}
 
-        <TouchableOpacity onPress={() => navigation.navigate("NotificationDetails")}>
-        <View style={styles.card}>
-          <View style={styles.cardImgWrapper}>
-            <Image
-              source={require('../assets/notification/notification2.png')}
-              resizeMode="cover"
-              style={styles.cardImg}
-            />
-          </View>
-          <View style={styles.cardInfo}>
-          <Text style={styles.cardTitle}>Notification Title 2</Text>
-          <Text style={styles.cardDetails}>
-              This part consists of description of the notification. It can include offers,.......
-              
-            </Text>
-          </View>
-        </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => navigation.navigate("NotificationDetails")}>
-        <View style={styles.card}>
-          <View style={styles.cardImgWrapper}>
-            <Image
-              source={require('../assets/notification/notification.jpg')}
-              resizeMode="cover"
-              style={styles.cardImg}
-            />
-          </View>
-          <View style={styles.cardInfo}>
-          <Text style={styles.cardTitle}>Notification Title 3</Text>
-          <Text style={styles.cardDetails}>
-              This part consists of description of the notification. It can include offers,.......
-              
-            </Text>
-          </View>
-        </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => navigation.navigate("NotificationDetails")}>
-        <View style={styles.card}>
-          <View style={styles.cardImgWrapper}>
-            <Image
-              source={require('../assets/notification/notification1.png')}
-              resizeMode="cover"
-              style={styles.cardImg}
-            />
-          </View>
-          <View style={styles.cardInfo}>
-          <Text style={styles.cardTitle}>Notification Title 4</Text>
-          <Text style={styles.cardDetails}>
-              This part consists of description of the notification. It can include offers,.......
-              
-            </Text>
-          </View>
-        </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => navigation.navigate("NotificationDetails")}>
-        <View style={styles.card}>
-          <View style={styles.cardImgWrapper}>
-            <Image
-              source={require('../assets/notification/notification2.png')}
-              resizeMode="cover"
-              style={styles.cardImg}
-            />
-          </View>
-          <View style={styles.cardInfo}>
-          <Text style={styles.cardTitle}>Notification Title 5</Text>
-          <Text style={styles.cardDetails}>
-              This part consists of description of the notification. It can include offers,.......
-              
-            </Text>
-          </View>
-        </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => navigation.navigate("NotificationDetails")}>
-        <View style={styles.card}>
-          <View style={styles.cardImgWrapper}>
-            <Image
-              source={require('../assets/notification/notification.jpg')}
-              resizeMode="cover"
-              style={styles.cardImg}
-            />
-          </View>
-          <View style={styles.cardInfo}>
-          <Text style={styles.cardTitle}>Notification Title 6</Text>
-          <Text style={styles.cardDetails}>
-              This part consists of description of the notification. It can include offers,.......
-              
-            </Text>
-          </View>
-        </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => navigation.navigate("NotificationDetails")}>
-        <View style={styles.card}>
-          <View style={styles.cardImgWrapper}>
-            <Image
-              source={require('../assets/notification/notification1.png')}
-              resizeMode="cover"
-              style={styles.cardImg}
-            />
-          </View>
-          <View style={styles.cardInfo}>
-          <Text style={styles.cardTitle}>Notification Title 7</Text>
-          <Text style={styles.cardDetails}>
-              This part consists of description of the notification. It can include offers,.......
-              
-            </Text>
-          </View>
-        </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => navigation.navigate("NotificationDetails")}>
-        <View style={styles.card}>
-          <View style={styles.cardImgWrapper}>
-            <Image
-              source={require('../assets/notification/notification2.png')}
-              resizeMode="cover"
-              style={styles.cardImg}
-            />
-          </View>
-          <View style={styles.cardInfo}>
-          <Text style={styles.cardTitle}>Notification Title 8</Text>
-          <Text style={styles.cardDetails}>
-              This part consists of description of the notification. It can include offers,.......
-              
-            </Text>
-          </View>
-        </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => navigation.navigate("NotificationDetails")}>
-        <View style={styles.card}>
-          <View style={styles.cardImgWrapper}>
-            <Image
-              source={require('../assets/notification/notification.jpg')}
-              resizeMode="cover"
-              style={styles.cardImg}
-            />
-          </View>
-          <View style={styles.cardInfo}>
-          <Text style={styles.cardTitle}>Notification Title 9</Text>
-          <Text style={styles.cardDetails}>
-              This part consists of description of the notification. It can include offers,.......
-              
-            </Text>
-          </View>
-        </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => navigation.navigate("NotificationDetails")}>
-        <View style={styles.card}>
-          <View style={styles.cardImgWrapper}>
-            <Image
-              source={require('../assets/foodimage/food11.jpg')}
-              resizeMode="cover"
-              style={styles.cardImg}
-            />
-          </View>
-          <View style={styles.cardInfo}>
-          <Text style={styles.cardTitle}>Notification Title 10</Text>
-          <Text style={styles.cardDetails}>
-              This part consists of description of the notification. It can include offers,.......
-              
-            </Text>
-          </View>
-        </View>
-        </TouchableOpacity>
       </View>
                    
       </ScrollView>

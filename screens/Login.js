@@ -8,6 +8,8 @@ import {
   ScrollView,
   Dimensions,
   TouchableOpacity,
+  View,
+  AsyncStorage
 } from "react-native";
 const { width } = Dimensions.get("window");
 
@@ -15,57 +17,122 @@ const { width } = Dimensions.get("window");
 import { Card } from "../components";
 import { Button, Block, Input, Text } from "../components";
 import { theme } from "../constants";
+import Toast, {DURATION} from 'react-native-easy-toast';
 
-const VALID_EMAIL = "homeseekfood@gmail.com";
-const VALID_PASSWORD = "homeseek123";
 
 
 export default class Login extends Component {
+
   state = {
-    email: VALID_EMAIL,
-    password: VALID_PASSWORD,
-    errors: [],
     loading: false
   };
+
   static navigationOptions = {
-    headerShown: false
+    headerShown: false,
+    gestureEnabled: false
+
+    
   };
 
-  handleLogin() {
+
+
+
+
+ handleLogin = async () => {
+
+
     const { navigation } = this.props;
     const { email, password } = this.state;
-    const errors = [];
+  
+    var mailformat = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+
+ if(email.length<2||password.length<2){
+
+  this.refs.toast.show("Please fill input field properly",2000);
+  return;
+   
+
+ }   
+    if(!email.match(mailformat))
+{
+      this.refs.toast.show("The email format is invalid",2000);
+      return;
+
+}
+
+
 
     Keyboard.dismiss();
     this.setState({ loading: true });
 
-    // check with backend API or with some static data
-    if (email !== VALID_EMAIL) {
-      errors.push("email");
-    }
-    if (password !== VALID_PASSWORD) {
-      errors.push("password");
-    }
+  
+  
 
-    this.setState({ errors, loading: false });
+let response= await fetch('https://foodapp.elscript.com/api/login', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              email: email,
+              password: password,
+              position: 'buyer',
+            })
+        })
 
-    if (!errors.length) {
-      navigation.navigate("Home");
-    }
-    if(errors.length)
-    {
-      alert("Invalid username/password combination !")
-    }
-  }
+            .then((response) => response.json())
+            .then((responseData) => {
+                if(responseData.code==200)
+                {
+                  
+                  this.setState({  loading: false });
+                   
+                  try {
+                   AsyncStorage.setItem('access_token',responseData.data.access_token); 
+                   AsyncStorage.setItem('isLoggedIn','1'); 
+                  } catch (error) {
+                    // Error saving data
+                  }
+
+                  navigation.navigate("Home")
+                }
+                else if(responseData.code==401)
+                {
+                  this.refs.toast.show(responseData.message,2000);
+                  this.setState({  loading: false });
+
+                }
+                else{
+                  this.refs.toast.show(responseData.message,2000);
+                  this.setState({  loading: false });
+                }
+
+      })
+      .catch((error) =>{
+        console.error(error);
+      }) 
+
+      
+
+}
+
+
+
+
+
 
   render() {
     const { navigation } = this.props;
-    const { loading, errors } = this.state;
-    const hasErrors = key => (errors.includes(key) ? styles.s : null);
+    const { loading } = this.state;
+
     
 
     return (
       <Block style={{backgroundColor :"#F6EEEE"}}>
+
+
+
       <ScrollView style={{ marginVertical: theme.sizes.padding }} >
       <KeyboardAvoidingView style={styles.login} >
         
@@ -74,10 +141,20 @@ export default class Login extends Component {
         
           </Text>
           
-
          
         <Card style={styles.cardstyle}>  
 
+        <Toast
+                    ref="toast"
+                    style={{backgroundColor:'red',borderRadius: width/20}}
+                    position='top'
+                    positionValue={500}
+                    fadeInDuration={200}
+                    fadeOutDuration={500}
+                    opacity={1}
+                    textStyle={{color:'white'}}
+         />
+       
         <Block style= {styles.logoblock}> 
          <Image  style= {styles.logoimage} source={require('../assets/logo.jpg')}
          />     
@@ -90,18 +167,18 @@ export default class Login extends Component {
             <Input  
               placeholder="Email"
               placeholderTextColor="#7D3C3C"
-              error={hasErrors("email")}
               style={[styles.textInput, ]}
-              defaultValue={this.state.email}
+              defaultValue='paras@elscript.com'
+              Value="paras@elscript.com"
               onChangeText={text => this.setState({ email: text })}
             />
             <Input 
               placeholder="Password"
               placeholderTextColor="#7D3C3C"
+              style={[styles.textInput]}
+              defaultValue='paras123'
+              Value="paras123"
               secureTextEntry={true}
-              error={hasErrors("password")}
-              style={[styles.textInput, hasErrors("password")]}
-              defaultValue={this.state.password}
               onChangeText={text => this.setState({ password: text })}
             />
             <Text>{"\n"}</Text>
@@ -141,18 +218,11 @@ export default class Login extends Component {
                 style={{fontSize:width/29,}}
                 
               >
-                Don't have an account?
-        
-                
-                <Text style={{color:'#FF6600'}}>Click Here</Text> 
+                Don't have an account? 
+                <Text style={{color:'#FF6600'}}> Click Here</Text> 
                    
          </Text>
          </TouchableOpacity>
-
-
-
-       
-       
       </KeyboardAvoidingView>
         </ScrollView>
         </Block>
@@ -184,6 +254,10 @@ const styles = StyleSheet.create({
   
     borderRadius: width/20,
     margin:1,
+  },
+  container: {
+    flex: 1,
+    backgroundColor: '#ecf0f1',
   },
   
   textInput: {

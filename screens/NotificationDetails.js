@@ -15,7 +15,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { Card, Block, Text } from "../components";
 import { theme } from "../constants";
 
-
+const url = 'https://foodapp.elscript.com/';
 
 
 export default class OverView extends Component {
@@ -37,7 +37,7 @@ export default class OverView extends Component {
     const { navigation } = this.props;
     const { loading, errors } = this.state;
     const hasErrors = key => (errors.includes(key) ? styles.s : null);
-    
+    const motivation = this.props.navigation.getParam('motivation');
 
     return (
       <ScrollView style={{backgroundColor:'white'}} showsVerticalScrollIndicator={true}>
@@ -45,7 +45,9 @@ export default class OverView extends Component {
           <View style={styles.Container}>
           <Image
         style={{ width: width, height: width/2 }}
-        source={require("../assets/notification/notification1.png")} 
+        source={{
+          uri: url+motivation.image_name,
+        }}
         
          />
           </View>
@@ -55,7 +57,7 @@ export default class OverView extends Component {
             borderBottomWidth: 1,
           }}
         />
-        <Text center bold gray style={{padding:20,paddingBottom:4,fontSize:14}}>Notification Title Name</Text>
+        <Text center bold gray style={{padding:20,paddingLeft:0,paddingRight:0,paddingBottom:4,fontSize:14}}>{motivation.title}</Text>
         <Block
           style={{
             borderBottomColor: '#E7E3E3',
@@ -64,8 +66,7 @@ export default class OverView extends Component {
           }}
         />
         <Text style={{fontSize:14,padding:20,textAlign: 'justify',letterSpacing: 1,paddingBottom:width/6}}>
-        This part consists of description of the notification. Any notification detail can be shown in this part
-        This part consists of description of the notification. Any notification detail can be shown in this part
+        {motivation.description}
         </Text>
 
         <View>

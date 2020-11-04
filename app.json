@@ -2,7 +2,7 @@
   "expo": {
     "name": "Homeseek",
     "android":{
-   "package":"com.initials.homeseek",
+   "package":"com.buyer.homeseek",
    "versionCode":1,
    "permissions":[],
    "icon": "./assets/icon.png"
@@ -15,7 +15,7 @@
       "android",
       "web"
     ],
-    "version": "1.0.0",
+    "version": "1.0.2",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {

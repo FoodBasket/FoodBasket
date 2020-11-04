@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import * as Font from 'expo-font';
 import { AppLoading } from 'expo';
 import Navigator from './routes/drawer';
+import {
+   AsyncStorage
+} from "react-native";
 
 
 const getFonts = () => Font.loadAsync({
@@ -11,6 +14,14 @@ const getFonts = () => Font.loadAsync({
 
 export default function App() {
   const [fontsLoaded, setFontsLoaded] = useState(false);
+  const isLoggedIn= AsyncStorage.getItem('isLoggedIn');
+  const access_token= AsyncStorage.getItem('access_token');
+
+  
+
+
+
+
 
   if (fontsLoaded) {
     return (
@@ -18,6 +29,7 @@ export default function App() {
     );
   } else {
     return (
+      
       <AppLoading 
         startAsync={getFonts} 
         onFinish={() => setFontsLoaded(true)} 

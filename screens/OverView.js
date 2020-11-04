@@ -14,12 +14,10 @@ import NumericInput from 'react-native-numeric-input'
 import { SliderPicker } from 'react-native-slider-picker';
 
 
-
-
-
-
 import { Card, Block, Text } from "../components";
 import { theme } from "../constants";
+
+const url = 'https://foodapp.elscript.com/';
 
 
 
@@ -48,15 +46,19 @@ export default class OverView extends Component {
     const { navigation } = this.props;
     const { loading, errors } = this.state;
     const hasErrors = key => (errors.includes(key) ? styles.s : null);
+    const ItemDetails = this.props.navigation.getParam('ItemDetails');
     
 
     return (
       <ScrollView style={{backgroundColor:'white'}} showsVerticalScrollIndicator={true}>
-     
+     <Block>
+       
           <View style={styles.Container}>
           <Image
         style={{ width: width, height: width/2 }}
-        source={require("../assets/foodimage/food3.jpg")} 
+        source={{
+          uri: url+ItemDetails.image_name,
+        }}
         
          />
           </View>
@@ -70,17 +72,15 @@ export default class OverView extends Component {
             borderBottomWidth: 1,
           }}
         />
-        <Text bold gray style={{padding:20,paddingBottom:4,paddingTop:5,fontSize:14}}>Amazing Food Name</Text>
-        <Text  style={{paddingLeft:20,paddingBottom:10,fontSize:14}}>Spicy and Freshly Delivered</Text>
+        <Text bold gray style={{padding:20,paddingBottom:4,paddingTop:5,fontSize:14}}>{ItemDetails.item_name}</Text>
+        <Text  style={{paddingLeft:20,paddingBottom:10,fontSize:14}}>{ItemDetails.item_element}</Text>
         <Block row space="between">
         <Block style={{paddingLeft:20}}>
         <NumericInput
-        value={this.state.value} 
-        onChange={value => this.setState({value})}
         initValue={1}
         minValue={1} maxvalue={20} totalWidth={60} totalHeight={40}  type='up-down' iconSize={30} onChange={value => console.log(value)} />
         </Block>
-        <Text bold right primary style={{paddingRight:30,paddingTop:15,fontSize:14}}>Price: Rs 300</Text>
+        <Text bold right primary style={{paddingRight:30,paddingTop:15,fontSize:14}}>Price: Rs {ItemDetails.price}</Text>
         </Block>
 
         <View >
@@ -117,7 +117,7 @@ export default class OverView extends Component {
           }}
         />
         <Text style={{fontSize:14,padding:20,textAlign: 'justify',letterSpacing: 1,paddingBottom:width/10}}>
-          This section contains the description of the item. It should give the basic description of the item.
+          {ItemDetails.description}
         </Text>
         
 
@@ -154,6 +154,7 @@ export default class OverView extends Component {
             </Block>
           
         </View>
+        </Block>
           
         
          

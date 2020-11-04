@@ -7,7 +7,7 @@ import {
   Modal,
   StyleSheet,
   ScrollView,
-  ImageBackground,
+  AsyncStorage,
 } from "react-native";
 
 import { Button, Block, Text } from "../components";
@@ -25,6 +25,36 @@ class Welcome extends Component {
   state = {
     showTerms: false
   };
+
+  handleAccess() {
+    try {
+      const { navigation } = this.props;
+
+
+    AsyncStorage.getItem("isLoggedIn").then((loginStatus) => {   //Check if the user is logged in, if yes then navigate to home s
+      global.loginStatus = loginStatus;
+    });
+  AsyncStorage.getItem("access_token").then((token) => {   //Check if the user is logged in, if yes then navigate to home s
+    global.token = token;
+   });
+
+    if(loginStatus==1)//Check if the user is logged in, if yes then navigate to home else login 
+    {
+      navigation.navigate("Home");
+
+    }
+    else{
+      navigation.navigate("Login");
+
+    }
+      
+  
+     } catch (error) {
+       // Error saving data
+     }
+
+
+  }
 
   
 
@@ -305,7 +335,7 @@ class Welcome extends Component {
           {this.renderIllustrations()}
         </Block>
         <Block middle flex={0.5} margin={[0, theme.sizes.padding * 1.5]}>
-          <Button style={styles.button} gradient onPress={() => navigation.navigate("Login")}>
+          <Button style={styles.button} gradient onPress={() => this.handleAccess()}>
           <Text
                  white
                 caption

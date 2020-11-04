@@ -13,16 +13,128 @@ import {
 import { Card,Block, Text } from "../components";
 import { theme } from "../constants";
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import StarRating from '../components/StarRating';
+import { Alert, BackHandler } from "react-native";
+
+
 
 const { width, height } = Dimensions.get("window");
 
 
 
+const url = 'https://foodapp.elscript.com/';
+let response=  fetch(url+'api/categories', {
+            method: 'GET',
+        })
+
+            .then((response) => response.json())
+            .then((responseData) => {
+              categoryData=responseData.categoryData;
+                
+
+      })
+      .catch((error) =>{
+        console.error(error);
+      }) 
+
+      let slideresponse=  fetch(url+'api/slide', {
+                  method: 'GET',
+              })
+      
+                  .then((slideresponse) => slideresponse.json())
+                  .then((responseData) => {
+                    SlideData=responseData.SlideData;
+                    
+            })
+            .catch((error) =>{
+              console.error(error);
+            }) 
+
+
+            let specialresponse=  fetch(url+'api/special', {
+              method: 'GET',
+          })
+  
+              .then((specialresponse) => specialresponse.json())
+              .then((responseData) => {
+                SpecialData=responseData.SpecialData;
+                
+        })
+        .catch((error) =>{
+          console.error(error);
+        })
+        
+        let timeresponse=  fetch(url+'api/time', {
+          method: 'GET',
+      })
+
+          .then((timeresponse) => timeresponse.json())
+          .then((responseData) => {
+            TimeData=responseData.TimeData;
+            
+    })
+    .catch((error) =>{
+      console.error(error);
+    })
+
+let itemresponse=  fetch(url+'api/items', {
+      method: 'GET',
+  })
+
+      .then((itemresponse) => itemresponse.json())
+      .then((responseData) => {
+        ItemData=responseData.ItemData;
+        
+})
+.catch((error) =>{
+  console.error(error);
+})
+
+
 class Home extends Component {
+
+  constructor(props) {
+
+    super(props);
+
+    this.back_Button_Press = this.back_Button_Press.bind(this);
+
+  }
+
+  componentWillMount() {
+
+    BackHandler.addEventListener('hardwareBackPress', this.back_Button_Press);
+  }
+  componentWillUnmount() {
+ 
+    BackHandler.removeEventListener('hardwareBackPress', this.back_Button_Press);
+  }
+
+  
+back_Button_Press = () => {
+
+  // Put your own code here, which you want to exexute on back button press.
+  if(this.props.navigation.isFocused()){
+  Alert.alert(
+    ' Exit From App ',
+    ' Do you want to exit From App ?',
+    [
+      { text: 'Yes', onPress: () => BackHandler.exitApp() },
+      { text: 'No', onPress: () => console.log('NO Pressed') }
+    ],
+    { cancelable: false },
+  );
+
+  // Return true to enable back button over ride.
+  return true;
+  }
+}
+
  
   static navigationOptions=({navigation}) => ({
 
-    title: 'Homeseek',
+    title: "Homeseek"
+    ,
     headerTitleStyle: { alignSelf: 'center' },
     headerTintColor: 'black',
     headerStyle: {
@@ -53,8 +165,7 @@ class Home extends Component {
     showTerms: false
   };
 
-  renderIllustrations() {
-    const { illustrations } = this.props;
+  renderIllustrations(SlideData) {
 
     return (
       <FlatList
@@ -64,13 +175,13 @@ class Home extends Component {
         showsHorizontalScrollIndicator={false}
         scrollEventThrottle={16}
         snapToAlignment="center"
-        data={illustrations}
+        data={SlideData}
         extraDate={this.state}
         style={{ width, height: height / 3.5, overflow: "visible" }}
         keyExtractor={(item, index) => `${item.id}`}
         renderItem={({ item }) => (
           <Image
-            source={item.source}
+            source={{uri: url+item.image_name}}
             resizeMode="contain"
             style={{ width, height: height / 3.5, overflow: "visible" }}
           />
@@ -84,12 +195,11 @@ class Home extends Component {
     );
   }
 
-  renderSteps() {
-    const { illustrations } = this.props;
+  renderSteps(SlideData) {
     const stepPosition = Animated.divide(this.scrollX, width);
     return (
       <Block row  middle style={styles.stepsContainer}>
-        {illustrations.map((item, index) => {
+        {SlideData.map((item, index) => {
           const opacity = stepPosition.interpolate({
             inputRange: [index - 1, index, index + 1],
             outputRange: [0.4, 1, 0.4],
@@ -119,7 +229,7 @@ class Home extends Component {
         
 
       
-      <Block>
+      <Block style={{backgroundColor:'white'}}>
 
        <ScrollView
           showsVerticalScrollIndicator={false}
@@ -128,8 +238,8 @@ class Home extends Component {
         
 
         <Block style={{height: width / 2 }} center middle>
-          {this.renderIllustrations()}
-          {this.renderSteps()}
+          {this.renderIllustrations(SlideData)}
+          {this.renderSteps(SlideData)}
           
         </Block>
         <Text h3 center light>
@@ -145,376 +255,144 @@ class Home extends Component {
         >
           
         <Block style={{paddingTop:10}} flex={false} row space="between" >
+
+        {categoryData.map((category, index) => (
           <View style={styles.Container}>
-
-          <TouchableOpacity onPress={() => navigation.navigate("ItemList")}>
-            <Image
-              source={require("../assets/foodimage/category1.jpg")} 
-              style={styles.circleImageLayout}
-            />
-         </TouchableOpacity>
-
-            <Text style={styles.text}>Khaja</Text>
-          </View>
-          <View style={styles.Container}>
-
-          <TouchableOpacity onPress={() => navigation.navigate("ItemList")}>
+          <TouchableOpacity onPress={() => navigation.navigate("ItemList",{category_name: category.category_name,ItemData: ItemData})}>
           <Image
-              source={require("../assets/foodimage/category2.jpg")} 
+              source={{
+                uri: url+category.image,
+              }}
               style={styles.circleImageLayout}
             />
          </TouchableOpacity>
 
-            <Text style={styles.text}>Khana</Text>
+        <Text style={styles.text}>{category.category_name}</Text>
           </View>
-          <View style={styles.Container}>
 
-          <TouchableOpacity onPress={() => navigation.navigate("ItemList")}>
-          <Image
-              source={require("../assets/foodimage/category3.jpg")} 
-              style={styles.circleImageLayout}
-            />
-         </TouchableOpacity>
+   ))}
 
-            <Text style={styles.text}>Lunch</Text>
-          </View>
-          <View style={styles.Container}>
-
-          <TouchableOpacity onPress={() => navigation.navigate("ItemList")}>
-          <Image
-              source={require("../assets/foodimage/category4.jpg")} 
-              style={styles.circleImageLayout}
-            />
-         </TouchableOpacity>
-
-            <Text style={styles.text}>Drinks</Text>
-          </View>
-          <View style={styles.Container}>
-
-          <TouchableOpacity onPress={() => navigation.navigate("ItemList")}>
-          <Image
-              source={require("../assets/foodimage/category5.jpg")} 
-              style={styles.circleImageLayout}
-            />
-         </TouchableOpacity>
-
-            <Text style={styles.text}>Ice Cream</Text>
-          </View>
          </Block>
          </ScrollView>
         <Text h3 center light>
            {"\n"}
            Our Special
-           {"\n"}
        </Text>
+       <ScrollView
+          showsVerticalScrollIndicator={false}
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
+          scrollEventThrottle={16}
+        >
+       <Block row space="between"> 
+
+       {SpecialData.map((special, index) => (
+       <TouchableOpacity onPress={() => navigation.navigate("Overview",{ItemDetails: special})}>
+       <View style={{ padding:width/25,paddingLeft:0,paddingRight:10, }}>
+                      
+       <View style={{ width: width / 2.3, height: width / 1.8,elevation:1, borderWidth: 1, borderColor: '#dddddd' }}>
+                <View style={{ flex: 1 }}>
+                    <Image
+                        style={{ flex: 1, width: null, resizeMode: 'cover' }}
+                        source={{
+                          uri: url+special.image_name,
+                        }}
+                         />
+                </View>
+                <View style={{ flex: 1, padding: width/40 }}>
+                <Text bold >
+                      {special.item_name}
+                    </Text>
+                    <Text bold style={{fontSize:12,color:'#FC4A1A'}}>
+                      {special.item_element}
+                    </Text>
+                    <StarRating ratings={4}  />
+                    <Text bold style={{fontSize:13,paddingTop:10,}}>
+                      Rs {special.price}
+                    </Text>
+                   
+                </View>
+            </View>
+
+        </View>
+        </TouchableOpacity>
+        ))}
+
+        
+       
+        </Block>   
+        </ScrollView>
   
 
-
-       <Block flex={false} row space="between" style={styles.categories}>
-         
-               <TouchableOpacity onPress={() => navigation.navigate("Overview")}>
-
-                <Card  shadow style={styles.category}>
-               
-                    <Image style={styles.category_image} source={require('../assets/foodimage/food1.jpg')} />
-                    <Text bold height={20}>
-                      Chicken Piece
-                    </Text>
-                    <Text bold style={{fontSize:10,color:'#FC4A1A'}}>
-                      Fried and Boiled
-                    </Text>
-                    <Text bold style={{fontSize:13,paddingTop:10,}}>
-                      Rs 100
-                    </Text>
-                </Card>
-              </TouchableOpacity>
-
-              <TouchableOpacity onPress={() => navigation.navigate("Overview")}>
-                <Card  shadow style={styles.category}>
-               
-                <Image style={styles.category_image} source={require('../assets/foodimage/food2.jpg')} />
-                <Text bold height={20}>
-                  Burger
-                </Text>
-                <Text bold style={{fontSize:10,color:'#FC4A1A'}}>
-                  Double Layered Cheese
-                </Text>
-                <Text bold style={{fontSize:13,paddingTop:10,}}>
-                  Rs 200
-                </Text>
-                </Card>
-              </TouchableOpacity>
-
-              <TouchableOpacity onPress={() => navigation.navigate("Overview")}>
-                <Card  shadow style={styles.category}>
-               
-                <Image style={styles.category_image} source={require('../assets/foodimage/food3.jpg')} />
-                <Text bold height={20}>
-                  Spring Roll
-                </Text>
-                <Text bold style={{fontSize:10,color:'#FC4A1A'}}>
-                  Crispy and Tasty
-                </Text>
-                <Text bold style={{fontSize:13,paddingTop:10,}}>
-                  Rs 150
-                </Text>
-                </Card>
-              </TouchableOpacity>
-
-              <TouchableOpacity onPress={() => navigation.navigate("Overview")}>
-                <Card shadow style={styles.category}>
-               
-                <Image style={styles.category_image} source={require('../assets/foodimage/food4.jpg')} />
-                <Text bold height={20}>
-                  Desert
-                </Text>
-                <Text bold style={{fontSize:10,color:'#FC4A1A'}}>
-                  Sweet Creamy
-                </Text>
-                <Text bold style={{fontSize:13,paddingTop:10,}}>
-                  Rs 320
-                </Text>
-                </Card>
-                
-              </TouchableOpacity>
-
-
-        </Block>
 
 <Block
   style={{
     borderBottomColor: '#E7E3E3',
-    borderBottomWidth: 3,
+    borderBottomWidth: 2,
     padding:10
   }}
 />
 
 
-<Text h3 center light>
-           {"\n"}
-           Instant Foods
-           {"\n"}
-    </Text>
 
-        
+    
 
-
-<Block flex={false} row space="between" style={styles.categories}>
-         
-         <TouchableOpacity onPress={() => navigation.navigate("Overview")}>
-
-          <Card  shadow style={styles.category}>
-         
-              <Image style={styles.category_image} source={require('../assets/foodimage/food9.jpg')} />
-              <Text bold height={20}>
-              Pizza
-            </Text>
-            <Text bold style={{fontSize:10,color:'#FC4A1A'}}>
-              Double Cheese Crispy
-            </Text>
-            <Text bold style={{fontSize:13,paddingTop:10,}}>
-              Rs 80
-            </Text>
-          </Card>
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => navigation.navigate("Overview")}>
-          <Card  shadow style={styles.category}>
-         
-          <Image style={styles.category_image} source={require('../assets/foodimage/food10.jpg')} />
-          <Text bold height={20}>
-              Pizza
-            </Text>
-            <Text bold style={{fontSize:10,color:'#FC4A1A'}}>
-              Double Cheese Crispy
-            </Text>
-            <Text bold style={{fontSize:13,paddingTop:10,}}>
-              Rs 160
-            </Text>
-          </Card>
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => navigation.navigate("Overview")}>
-          <Card  shadow style={styles.category}>
-         
-          <Image style={styles.category_image} source={require('../assets/foodimage/food11.jpg')} />
-          <Text bold height={20}>
-              Pizza
-            </Text>
-            <Text bold style={{fontSize:10,color:'#FC4A1A'}}>
-              Double Cheese Crispy
-            </Text>
-            <Text bold style={{fontSize:13,paddingTop:10,}}>
-              Rs 220
-            </Text>
-          </Card>
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => navigation.navigate("Overview")}>
-          <Card shadow style={styles.category}>
-         
-          <Image style={styles.category_image} source={require('../assets/foodimage/food12.jpg')} />
-          <Text bold height={20}>
-              Pizza
-            </Text>
-            <Text bold style={{fontSize:10,color:'#FC4A1A'}}>
-              Double Cheese Crispy
-            </Text>
-            <Text bold style={{fontSize:13,paddingTop:10,}}>
-              Rs 30
-            </Text>
-          </Card>
-        </TouchableOpacity>
-
-  </Block>
-
-  <Block
-  style={{
-    borderBottomColor: '#E7E3E3',
-    borderBottomWidth: 3,
-    padding:10
-  }}
-/>
 <Text h3 center light>
            {"\n"}
            Best on Time
            {"\n"}
     </Text>
 
+    {TimeData.map((time, index) => (
+
   <View style={styles.Container}>
-  <TouchableOpacity onPress={() => navigation.navigate("Overview")}>
+  <TouchableOpacity onPress={() => navigation.navigate("Overview",{ItemDetails: time})}>
           <Image
         style={{ width: width, height: width/1.9 }}
-        source={require("../assets/foodimage/food5.jpg")} 
+        source={{
+          uri: url+time.image_name,
+        }}
         resizeMode="contain"
          />
          <View style={styles.botstyle}>
            <Text style={{fontSize:16}}>
-              Chinese Food Combination & soup
+              {time.item_name}
             </Text>
             <Text  style={{fontSize:13,color:'gray'}}>
-              Double Cheese Crispy
+              {time.item_element}
             </Text>
             <Text bold style={{fontSize:13,paddingTop:7,color:'gray'}}>
-              Time: 13:00 to 17:00
+              Time: {time.time1} to {time.time2}
             </Text>
             <Text bold style={{fontSize:14,paddingTop:10,}}>
-                  Rs 200
+                  Rs {time.price}
             </Text>
            </View>
   </TouchableOpacity>
+  
+  <View
+   style={{
+     borderBottomColor: '#E7E3E3',
+     borderBottomWidth: 1,
+     padding:10
+   }}
+ >
    </View>
-
-   <Block
-  style={{
-    borderBottomColor: '#E7E3E3',
-    borderBottomWidth: 1,
-    padding:10
-  }}
-/>
-<Text>{"\n"}</Text>
-
-<View style={styles.Container}>
-<TouchableOpacity onPress={() => navigation.navigate("Overview")}>
-          <Image
-        style={{ width: width, height: width/1.9 }}
-        source={require("../assets/foodimage/food6.jpg")} 
-        resizeMode="contain"
-         />
-         <View style={styles.botstyle}>
-           <Text style={{fontSize:16}}>
-              Vegetable Salad 
-            </Text>
-            <Text  style={{fontSize:13,color:'gray'}}>
-              From Fresh Vegetable
-            </Text>
-            <Text bold style={{fontSize:13,paddingTop:7,color:'gray'}}>
-              Time: 13:00 to 17:00
-            </Text>
-            <Text bold style={{fontSize:14,paddingTop:10,}}>
-                  Rs 200
-            </Text>
-           </View>
-  </TouchableOpacity>
+   <Text>{"\n"}</Text>
    </View>
+  
+    
+    ))}
 
-   <Block
-  style={{
-    borderBottomColor: '#E7E3E3',
-    borderBottomWidth: 1,
-    padding:10
-  }}
-/>
+   
 
-<Text>{"\n"}</Text>
 
-<View style={styles.Container}>
-<TouchableOpacity onPress={() => navigation.navigate("Overview")}>
 
-          <Image
-        style={{ width: width, height: width/1.9 }}
-        source={require("../assets/foodimage/food7.jpg")} 
-        resizeMode="contain"
-         />
-         <View style={styles.botstyle}>
-           <Text style={{fontSize:16}}>
-              Krishpy Fried Chicken
-            </Text>
-            <Text  style={{fontSize:13,color:'gray'}}>
-              Chicken wings and legs 
-            </Text>
-            <Text bold style={{fontSize:13,paddingTop:7,color:'gray'}}>
-              Time: 13:00 to 17:00
-            </Text>
-            <Text bold style={{fontSize:14,paddingTop:10,}}>
-                  Rs 200
-            </Text>
-           </View>
-  </TouchableOpacity>
-   </View>
 
-   <Block
-  style={{
-    borderBottomColor: '#E7E3E3',
-    borderBottomWidth: 1,
-    padding:10
-  }}
-/>
 
-<Text>{"\n"}</Text>
 
-<View style={styles.Container}>
-<TouchableOpacity onPress={() => navigation.navigate("Overview")}>
-          <Image
-        style={{ width: width, height: width/1.9 }}
-        source={require("../assets/foodimage/food8.jpg")} 
-        resizeMode="contain"
-         />
-         <View style={styles.botstyle}>
-           <Text style={{fontSize:16}}>
-              Complete Thai Food Set
-            </Text>
-            <Text  style={{fontSize:13,color:'gray'}}>
-              Freshly made with vegetable
-            </Text>
-            <Text bold style={{fontSize:13,paddingTop:7,color:'gray'}}>
-              Time: 13:00 to 17:00
-            </Text>
-            <Text bold style={{fontSize:14,paddingTop:10,}}>
-                  Rs 200
-            </Text>
-           </View>
-  </TouchableOpacity>
-   </View>
 
-   <Block
-  style={{
-    borderBottomColor: '#E7E3E3',
-    borderBottomWidth: 1,
-    padding:10
-  }}
-/>
-<Text>{"\n"}</Text>
+
 <Text>{"\n"}</Text>
 
    

@@ -39,6 +39,15 @@ const CustomDrawerContentComponent = (props) => (
             <Text primary style={styles.menutext}>  Home</Text>
             </Block>
           </TouchableOpacity>
+
+
+          <TouchableOpacity onPress={() => props.navigation.navigate('Profile')}>
+            <Block style={styles.menulist} flex={false} row  >
+
+            <MaterialIcons   name="settings" size={25} color="#FC4A1A" />
+            <Text primary style={styles.menutext}>  Profile Settings</Text>
+            </Block>
+          </TouchableOpacity>
           
          
           <TouchableOpacity onPress={() => props.navigation.navigate('OrderHistory')}>
@@ -70,14 +79,6 @@ const CustomDrawerContentComponent = (props) => (
 
             <MaterialIcons   name="phone" size={25} color="#FC4A1A" />
             <Text primary style={styles.menutext}>  Contact Us </Text>
-            </Block>
-          </TouchableOpacity>
-
-          <TouchableOpacity onPress={() => props.navigation.navigate('Login')}>
-            <Block style={styles.menulist} flex={false} row  >
-
-            <MaterialIcons   name="subdirectory-arrow-right" size={25} color="#FC4A1A" />
-            <Text primary style={styles.menutext}>  Login</Text>
             </Block>
           </TouchableOpacity>
 
@@ -113,13 +114,16 @@ const RootDrawerNavigator = createDrawerNavigator({
   },
   Login: {
     screen: LoginStack,
+    navigationOptions: ({navigation}) => ({
+      drawerLockMode: 'locked-closed'
+    })
   },
 
 
 },
 
   {
-    initialRouteName: 'Home',
+    initialRouteName: 'Login',
     drawerPosition: 'left',
     contentComponent: CustomDrawerContentComponent,
     drawerOpenRoute: 'DrawerOpen',

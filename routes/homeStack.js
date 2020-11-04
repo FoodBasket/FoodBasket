@@ -14,6 +14,7 @@ import OrderHistory from '../screens/OrderHistory';
 import Contact from '../screens/Contact';
 import Privacy from '../screens/Privacy';
 import TandC from '../screens/TandC';
+import Profile from '../screens/Profile';
 
 const screens = {
   Home: {
@@ -36,7 +37,8 @@ const screens = {
   ItemList: {
     screen: ItemList,
     navigationOptions: {
-      title: 'Category',
+      
+    
     }
   },
   Cart: {
@@ -95,6 +97,12 @@ const screens = {
       title: 'Privacy',
     }
   },
+  Profile: {
+    screen: Profile,
+    navigationOptions: {
+      title: 'User Profile',
+    }
+  },
 
   
 };
@@ -109,5 +117,6 @@ const HomeStack = createStackNavigator(screens, {
 });
 
 export default HomeStack;
+
 
 
