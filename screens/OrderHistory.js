@@ -6,11 +6,42 @@ import {
   Dimensions,
   TouchableOpacity,
   View,
+  AsyncStorage
 } from "react-native";
 const { width } = Dimensions.get("window");
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import StarRating from '../components/StarRating';
+
 
 import {  Text } from "../components";
+
+
+const url = 'https://foodapp.elscript.com/';
+
+AsyncStorage.getItem("access_token").then((token) => {   //It sends the post request only after the access token is loaded
+  
+  let response=  fetch('https://foodapp.elscript.com/api/show-orders', {
+  method: 'POST',
+  headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization':'Bearer '+token
+  }
+})
+
+  .then((response) => response.json())
+  .then((responseData) => {
+      if(responseData.code==200)
+      {
+         global.orderData=responseData.orderData;
+      }
+     
+
+})
+.catch((error) =>{
+console.error(error);
+}) 
+ });
 
 
 
@@ -42,256 +73,44 @@ export default class ItemList extends Component {
         <ScrollView style={styles.container}>
           
           <View style={styles.cardsWrapper}>
-      
+          {orderData.map((order, index) => (
           <TouchableOpacity >
         <View style={styles.card}>
           <View style={styles.cardImgWrapper}>
             <Image
-              source={require('../assets/foodimage/food1.jpg')}
+              source={{
+                uri: url+order.image_name,
+              }}
               resizeMode="cover"
               style={styles.cardImg}
             />
           </View>
           <View style={styles.cardInfo}>
-            <Text style={styles.cardTitle}>Amazing Food Place</Text>
+          <Text style={styles.cardTitle}>{order.item_name}</Text>
+          <StarRating ratings={(order.rating<4.5 ? 4 : 5 )}  />
             <Text style={styles.cardDetails}>
               {"\n"}
               <Text bold primary style={{fontSize:12,paddingTop:15,color:'#7D3C3C',}}>
                  Total: Rs 400 (200 X 2){"\n"}
             </Text>
-            <Text bold  style={{fontSize:14,paddingTop:15,color:'green'}}>
-                  Status: Completed
+            <Text bold  style={{fontSize:14,paddingTop:15,
+                   color:order.order_status==0 ?
+                   "#D25F2E" : order.order_status==4 ? 
+                   "#EC1F5D" : "#1EB305"}}>
+                  Status: {(order.order_status==0 ?
+                   "Pending" : order.order_status==1 ? 
+                   "Confirmed" : order.order_status==2 ?
+                   "Cooked" : order.order_status==3 ?
+                   "Delivered" : "Failed"  )}
             </Text>
 
             </Text>
           </View>
         </View>
         </TouchableOpacity>
+          ))}
 
-        <TouchableOpacity >
-        <View style={styles.card}>
-          <View style={styles.cardImgWrapper}>
-            <Image
-              source={require('../assets/foodimage/food2.jpg')}
-              resizeMode="cover"
-              style={styles.cardImg}
-            />
-          </View>
-          <View style={styles.cardInfo}>
-            <Text style={styles.cardTitle}>Amazing Food Place</Text>
-            <Text style={styles.cardDetails}>
-              {"\n"}
-              <Text bold primary style={{fontSize:12,paddingTop:15,color:'#7D3C3C',}}>
-                 Total: Rs 400 (200 X 2){"\n"}
-            </Text>
-            <Text bold secondary style={{fontSize:14,paddingTop:15,color:'red'}}>
-                  Status: Failed
-            </Text>
-
-            </Text>
-          </View>
-        </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity >
-        <View style={styles.card}>
-          <View style={styles.cardImgWrapper}>
-            <Image
-              source={require('../assets/foodimage/food3.jpg')}
-              resizeMode="cover"
-              style={styles.cardImg}
-            />
-          </View>
-          <View style={styles.cardInfo}>
-            <Text style={styles.cardTitle}>Amazing Food Place</Text>
-            <Text style={styles.cardDetails}>
-              {"\n"}
-              <Text bold primary style={{fontSize:12,paddingTop:15,color:'#7D3C3C',}}>
-                 Total: Rs 400 (200 X 2){"\n"}
-            </Text>
-            <Text bold secondary style={{fontSize:14,paddingTop:15,color:'green'}}>
-                  Status: Completed
-            </Text>
-
-            </Text>
-          </View>
-        </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity >
-        <View style={styles.card}>
-          <View style={styles.cardImgWrapper}>
-            <Image
-              source={require('../assets/foodimage/food4.jpg')}
-              resizeMode="cover"
-              style={styles.cardImg}
-            />
-          </View>
-          <View style={styles.cardInfo}>
-            <Text style={styles.cardTitle}>Amazing Food Place</Text>
-            <Text style={styles.cardDetails}>
-              {"\n"}
-              <Text bold primary style={{fontSize:12,paddingTop:15,color:'#7D3C3C',}}>
-                 Total: Rs 400 (200 X 2){"\n"}
-            </Text>
-            <Text bold secondary style={{fontSize:14,paddingTop:15,color:'red'}}>
-                  Status: Failed
-            </Text>
-
-            </Text>
-          </View>
-        </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity >
-        <View style={styles.card}>
-          <View style={styles.cardImgWrapper}>
-            <Image
-              source={require('../assets/foodimage/food5.jpg')}
-              resizeMode="cover"
-              style={styles.cardImg}
-            />
-          </View>
-          <View style={styles.cardInfo}>
-            <Text style={styles.cardTitle}>Amazing Food Place</Text>
-            <Text style={styles.cardDetails}>
-              {"\n"}
-              <Text bold primary style={{fontSize:12,paddingTop:15,color:'#7D3C3C',}}>
-                 Total: Rs 400 (200 X 2){"\n"}
-            </Text>
-            <Text bold secondary style={{fontSize:14,paddingTop:15,color:'red'}}>
-                  Status: Failed
-            </Text>
-
-            </Text>
-          </View>
-        </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity >
-        <View style={styles.card}>
-          <View style={styles.cardImgWrapper}>
-            <Image
-              source={require('../assets/foodimage/food6.jpg')}
-              resizeMode="cover"
-              style={styles.cardImg}
-            />
-          </View>
-          <View style={styles.cardInfo}>
-            <Text style={styles.cardTitle}>Amazing Food Place</Text>
-            <Text style={styles.cardDetails}>
-              {"\n"}
-              <Text bold primary style={{fontSize:12,paddingTop:15,color:'#7D3C3C',}}>
-                 Total: Rs 400 (200 X 2){"\n"}
-            </Text>
-            <Text bold secondary style={{fontSize:14,paddingTop:15,}}>
-                  Status: Pending
-            </Text>
-
-            </Text>
-          </View>
-        </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity >
-        <View style={styles.card}>
-          <View style={styles.cardImgWrapper}>
-            <Image
-              source={require('../assets/foodimage/food7.jpg')}
-              resizeMode="cover"
-              style={styles.cardImg}
-            />
-          </View>
-          <View style={styles.cardInfo}>
-            <Text style={styles.cardTitle}>Amazing Food Place</Text>
-            <Text style={styles.cardDetails}>
-              {"\n"}
-              <Text bold primary style={{fontSize:12,paddingTop:15,color:'#7D3C3C',}}>
-                 Total: Rs 400 (200 X 2){"\n"}
-            </Text>
-            <Text bold secondary style={{fontSize:14,paddingTop:15,}}>
-                  Status: Pending
-            </Text>
-
-            </Text>
-          </View>
-        </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity >
-        <View style={styles.card}>
-          <View style={styles.cardImgWrapper}>
-            <Image
-              source={require('../assets/foodimage/food8.jpg')}
-              resizeMode="cover"
-              style={styles.cardImg}
-            />
-          </View>
-          <View style={styles.cardInfo}>
-            <Text style={styles.cardTitle}>Amazing Food Place</Text>
-            <Text style={styles.cardDetails}>
-              {"\n"}
-              <Text bold primary style={{fontSize:12,paddingTop:15,color:'#7D3C3C',}}>
-                 Total: Rs 400 (200 X 2){"\n"}
-            </Text>
-            <Text bold secondary style={{fontSize:14,paddingTop:15,}}>
-                  Status: Pending
-            </Text>
-
-            </Text>
-          </View>
-        </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity >
-        <View style={styles.card}>
-          <View style={styles.cardImgWrapper}>
-            <Image
-              source={require('../assets/foodimage/food9.jpg')}
-              resizeMode="cover"
-              style={styles.cardImg}
-            />
-          </View>
-          <View style={styles.cardInfo}>
-            <Text style={styles.cardTitle}>Amazing Food Place</Text>
-            <Text style={styles.cardDetails}>
-              {"\n"}
-              <Text bold primary style={{fontSize:12,paddingTop:15,color:'#7D3C3C',}}>
-                 Total: Rs 400 (200 X 2){"\n"}
-            </Text>
-            <Text bold secondary style={{fontSize:14,paddingTop:15,}}>
-                  Status: Pending
-            </Text>
-
-            </Text>
-          </View>
-        </View>
-        </TouchableOpacity>
       
-        <TouchableOpacity >
-        <View style={styles.card}>
-          <View style={styles.cardImgWrapper}>
-            <Image
-              source={require('../assets/foodimage/food10.jpg')}
-              resizeMode="cover"
-              style={styles.cardImg}
-            />
-          </View>
-          <View style={styles.cardInfo}>
-            <Text style={styles.cardTitle}>Amazing Food Place</Text>
-            <Text style={styles.cardDetails}>
-              {"\n"}
-              <Text bold primary style={{fontSize:12,paddingTop:15,color:'#7D3C3C',}}>
-                 Total: Rs 400 (200 X 2){"\n"}
-            </Text>
-            <Text bold secondary style={{fontSize:14,paddingTop:15,}}>
-                  Status: Pending
-            </Text>
-
-            </Text>
-          </View>
-        </View>
-        </TouchableOpacity>
       </View>
                    
       </ScrollView>

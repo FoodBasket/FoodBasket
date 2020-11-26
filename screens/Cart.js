@@ -6,6 +6,7 @@ import {
   Dimensions,
   TouchableOpacity,
   View,
+  AsyncStorage
 } from "react-native";
 const { width } = Dimensions.get("window");
 
@@ -17,7 +18,38 @@ import StarRating from '../components/StarRating';
 import { theme } from "../constants";
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
+const url = 'https://foodapp.elscript.com/';
 
+if (typeof isCartChanged !== 'undefined' && isCartChanged==1){
+  alert(isCartChanged);
+  global.isCartChanged=0;
+
+}
+
+AsyncStorage.getItem("access_token").then((token) => {   //It sends the post request only after the access token is loaded
+  
+  let response=  fetch('https://foodapp.elscript.com/api/show-cart-item', {
+  method: 'POST',
+  headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization':'Bearer '+token
+  }
+})
+
+  .then((response) => response.json())
+  .then((responseData) => {
+      if(responseData.code==200)
+      {
+         global.cartData=responseData.cartData;
+      }
+     
+
+})
+.catch((error) =>{
+console.error(error);
+}) 
+ });
 
 export default class Cart extends Component {
   state = {
@@ -41,230 +73,41 @@ export default class Cart extends Component {
     const hasErrors = key => (errors.includes(key) ? styles.s : null);
     
 
+
     return (
         <ScrollView style={styles.container}>
           
           <View style={styles.cardsWrapper}>
-      
-          <TouchableOpacity onPress={() => navigation.navigate("OrderDetail")}>
+          {cartData.map((cart, index) => (
+      <TouchableOpacity onPress={() => navigation.navigate("OrderDetail",{order_item: cart})}>
         <View style={styles.card}>
           <View style={styles.cardImgWrapper}>
             <Image
-              source={require('../assets/foodimage/food1.jpg')}
+              source={{
+                uri: url+cart.image_name,
+              }}
               resizeMode="cover"
               style={styles.cardImg}
             />
           </View>
           <View style={styles.cardInfo}>
-            <Text style={styles.cardTitle}>Amazing Food Place</Text>
-            <StarRating ratings={4}  />
+            <Text style={styles.cardTitle}>{cart.item_name}</Text>
+            <StarRating ratings={(cart.rating<4.5 ? 4 : 5 )}  />
             <Text style={styles.cardDetails}>
-            Qty: 1{"\n"}
+            Qty: {cart.quantity}{"\n"}
               <Text bold primary style={{fontSize:12,paddingTop:15,}}>
-                 Total: Rs 200
+                 Total: Rs {cart.quantity * cart.price}
             </Text>
             </Text>
           </View>
         </View>
         </TouchableOpacity>
+          ))}
 
-        <TouchableOpacity onPress={() => navigation.navigate("OrderDetail")}>
-        <View style={styles.card}>
-          <View style={styles.cardImgWrapper}>
-            <Image
-              source={require('../assets/foodimage/food3.jpg')}
-              resizeMode="cover"
-              style={styles.cardImg}
-            />
-          </View>
-          <View style={styles.cardInfo}>
-            <Text style={styles.cardTitle}>Amazing Food Place</Text>
-            <StarRating ratings={4}  />
-            <Text style={styles.cardDetails}>
-            Qty: 1{"\n"}
-              <Text bold primary style={{fontSize:12,paddingTop:15,}}>
-              Total: Rs 200
-            </Text>
-            </Text>
-          </View>
-        </View>
-        </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => navigation.navigate("OrderDetail")}>
-        <View style={styles.card}>
-          <View style={styles.cardImgWrapper}>
-            <Image
-              source={require('../assets/foodimage/food4.jpg')}
-              resizeMode="cover"
-              style={styles.cardImg}
-            />
-          </View>
-          <View style={styles.cardInfo}>
-            <Text style={styles.cardTitle}>Amazing Food Place</Text>
-            <StarRating ratings={4}  />
-            <Text style={styles.cardDetails}>
-            Qty: 1{"\n"}
-              <Text bold primary style={{fontSize:12,paddingTop:15,}}>
-              Total: Rs 200
-            </Text>
-            </Text>
-          </View>
-        </View>
-        </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => navigation.navigate("OrderDetail")}>
-        <View style={styles.card}>
-          <View style={styles.cardImgWrapper}>
-            <Image
-              source={require('../assets/foodimage/food5.jpg')}
-              resizeMode="cover"
-              style={styles.cardImg}
-            />
-          </View>
-          <View style={styles.cardInfo}>
-            <Text style={styles.cardTitle}>Amazing Food Place</Text>
-            <StarRating ratings={4}  />
-            <Text style={styles.cardDetails}>
-            Qty: 1{"\n"}
-              <Text bold primary style={{fontSize:12,paddingTop:15,}}>
-              Total: Rs 200
-            </Text>
-            </Text>
-          </View>
-        </View>
-        </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => navigation.navigate("OrderDetail")}>
-        <View style={styles.card}>
-          <View style={styles.cardImgWrapper}>
-            <Image
-              source={require('../assets/foodimage/food6.jpg')}
-              resizeMode="cover"
-              style={styles.cardImg}
-            />
-          </View>
-          <View style={styles.cardInfo}>
-            <Text style={styles.cardTitle}>Amazing Food Place</Text>
-            <StarRating ratings={4}  />
-            <Text style={styles.cardDetails}>
-            Qty: 1{"\n"}
-              <Text bold primary style={{fontSize:12,paddingTop:15,}}>
-              Total: Rs 200
-            </Text>
-            </Text>
-          </View>
-        </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => navigation.navigate("OrderDetail")}>
-        <View style={styles.card}>
-          <View style={styles.cardImgWrapper}>
-            <Image
-              source={require('../assets/foodimage/food7.jpg')}
-              resizeMode="cover"
-              style={styles.cardImg}
-            />
-          </View>
-          <View style={styles.cardInfo}>
-            <Text style={styles.cardTitle}>Amazing Food Place</Text>
-            <StarRating ratings={4}  />
-            <Text style={styles.cardDetails}>
-            Qty: 1{"\n"}
-              <Text bold primary style={{fontSize:12,paddingTop:15,}}>
-              Total: Rs 200
-            </Text>
-            </Text>
-          </View>
-        </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => navigation.navigate("OrderDetail")}>
-        <View style={styles.card}>
-          <View style={styles.cardImgWrapper}>
-            <Image
-              source={require('../assets/foodimage/food8.jpg')}
-              resizeMode="cover"
-              style={styles.cardImg}
-            />
-          </View>
-          <View style={styles.cardInfo}>
-            <Text style={styles.cardTitle}>Amazing Food Place</Text>
-            <StarRating ratings={4}  />
-            <Text style={styles.cardDetails}>
-            Qty: 1{"\n"}
-              <Text bold primary style={{fontSize:12,paddingTop:15,}}>
-              Total: Rs 200
-            </Text>
-            </Text>
-          </View>
-        </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => navigation.navigate("OrderDetail")}>
-        <View style={styles.card}>
-          <View style={styles.cardImgWrapper}>
-            <Image
-              source={require('../assets/foodimage/food9.jpg')}
-              resizeMode="cover"
-              style={styles.cardImg}
-            />
-          </View>
-          <View style={styles.cardInfo}>
-            <Text style={styles.cardTitle}>Amazing Food Place</Text>
-            <StarRating ratings={4}  />
-            <Text style={styles.cardDetails}>
-            Qty: 1{"\n"}
-              <Text bold primary style={{fontSize:12,paddingTop:15,}}>
-              Total: Rs 200
-            </Text>
-            </Text>
-          </View>
-        </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => navigation.navigate("OrderDetail")}>
-        <View style={styles.card}>
-          <View style={styles.cardImgWrapper}>
-            <Image
-              source={require('../assets/foodimage/food10.jpg')}
-              resizeMode="cover"
-              style={styles.cardImg}
-            />
-          </View>
-          <View style={styles.cardInfo}>
-            <Text style={styles.cardTitle}>Amazing Food Place</Text>
-            <StarRating ratings={4}  />
-            <Text style={styles.cardDetails}>
-            Qty: 1{"\n"}
-              <Text bold primary style={{fontSize:12,paddingTop:15,}}>
-              Total: Rs 200
-            </Text>
-            </Text>
-          </View>
-        </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => navigation.navigate("OrderDetail")}>
-        <View style={styles.card}>
-          <View style={styles.cardImgWrapper}>
-            <Image
-              source={require('../assets/foodimage/food11.jpg')}
-              resizeMode="cover"
-              style={styles.cardImg}
-            />
-          </View>
-          <View style={styles.cardInfo}>
-            <Text style={styles.cardTitle}>Amazing Food Place</Text>
-            <StarRating ratings={4}  />
-            <Text style={styles.cardDetails}>
-            Qty: 1{"\n"}
-              <Text bold primary style={{fontSize:12,paddingTop:20,}}>
-              Total: Rs 200
-            </Text>
-            </Text>
-          </View>
-        </View>
-        </TouchableOpacity>
+       
       </View>
                    
       </ScrollView>

@@ -1,17 +1,16 @@
 import React, { Component } from "react";
 import { TextInput } from 'react-native';
 import {
-  ActivityIndicator,
-  Keyboard,
   KeyboardAvoidingView,
   StyleSheet,
   Image,
   ScrollView,
   Dimensions,
   View,
-  TouchableOpacity,
 } from "react-native";
 const { width } = Dimensions.get("window");
+import Toast, {DURATION} from 'react-native-easy-toast';
+
 
 
 import { Card } from "../components";
@@ -19,17 +18,14 @@ import { Button, Block, Input, Text } from "../components";
 import { theme } from "../constants";
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
-const VALID_EMAIL = "contact@react-ui-kit.com";
-const VALID_PASSWORD = "subscribe";
-
 
 export default class Login extends Component {
+
   state = {
-    email: VALID_EMAIL,
-    password: VALID_PASSWORD,
-    errors: [],
-    loading: false
+    subject: '0',
+    feedback: '1',
   };
+
   
   static navigationOptions=({navigation}) => ({
     title: 'Feedback',
@@ -39,25 +35,65 @@ export default class Login extends Component {
     },
  
   });
-  handleLogin() {
-    const { navigation } = this.props;
-    const { email, password } = this.state;
-    const errors = [];
+  submitFeedback = async () => {
+    const { subject,feedback } = this.state;
 
-    Keyboard.dismiss();
-    this.setState({ loading: true });
+  if(subject.length>200||subject.length<4)
+  {
+    this.refs.toast.show("Please enter the valid subject length !",2000);
+      return;
+    
+  }
+  if(feedback.length>200||feedback.length<4)
+  {
+    this.refs.toast.show("Please enter the valid feedback length !",2000);
+    return;
+    
+  }
 
 
-    this.setState({ errors, loading: false });
+  let response= await fetch('https://foodapp.elscript.com/api/ratings', {
+    method: 'POST',
+    headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization':'Bearer '+token
+    },
+    body: JSON.stringify({
+      title: subject,
+      feedback: feedback,
+    })
+})
+.then((response) => response.json())
+.then((responseData) => {
+    if(responseData.code==200)
+    { 
+      alert(responseData.message);
+      this.subject.clear();
+      this.feedback.clear();
+      return;
+
+    }
+    else if(responseData.code==401)
+    {
+      this.refs.toast.show(responseData.message,2000);
+
+    }
+    else{
+      this.refs.toast.show(responseData.message,2000);
+    }
+
+})
+
+
+
+
 
 
   }
 
   render() {
     const { navigation } = this.props;
-    const { loading, errors } = this.state;
-    const hasErrors = key => (errors.includes(key) ? styles.s : null);
-    
 
     return (
       <ScrollView style={{ marginVertical: theme.sizes.padding }} >
@@ -81,11 +117,28 @@ export default class Login extends Component {
    
 
         <Block padding={20} paddingTop={1}>
+
+               <Toast
+                    ref="toast"
+                    style={{backgroundColor:'red',borderRadius: width/20}}
+                    position='top'
+                    positionValue={200}
+                    fadeInDuration={200}
+                    fadeOutDuration={500}
+                    opacity={0.8}
+                    textStyle={{color:'white'}}
+               />
+
           <Block middle>
-            <Input  
+            <TextInput 
+              style={styles.smalltextArea} 
               placeholder="  Subject"
               placeholderTextColor="gray"
+              onChangeText={text => this.setState({ subject: text })}
+              ref={input => { this.subject = input }}
+
             />
+            <Text>{"\n"}</Text>
   
           <View style={styles.textAreaContainer} >
             <TextInput
@@ -94,19 +147,19 @@ export default class Login extends Component {
               placeholderTextColor="gray"
               numberOfLines={6}
               multiline={true}
+              onChangeText={text => this.setState({ feedback: text })}
+              ref={input => { this.feedback = input }}
+
             />
           </View>
 
             <Text>{"\n"}</Text>
 
-            <Button  style={styles.loginbutton} gradient onPress={() => alert("Thank you for your response")}>
-              {loading ? (
-                <ActivityIndicator size="small" color="white" />
-              ) : (
+            <Button  style={styles.loginbutton} gradient onPress={() => this.submitFeedback()}>
+              
                 <Text bold white center>
                   Submit
                 </Text>
-              )}
             </Button>
 
            
@@ -191,6 +244,16 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     flex: 1,
     borderWidth: 0.2,
+  },
+  smalltextArea: {
+    flex: 1,
+    height: 50,
+    justifyContent: "flex-start",
+    backgroundColor:'#F2F2F2',
+    borderRadius: 15,
+    flex: 1,
+    borderWidth: 0.2,
+
   },
   
 

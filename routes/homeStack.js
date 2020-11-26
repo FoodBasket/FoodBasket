@@ -57,7 +57,6 @@ const screens = {
   Overview: {
     screen: Overview,
     navigationOptions: {
-      title: 'Item Detail',
     }
   },
   Location: {

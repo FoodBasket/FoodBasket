@@ -41,7 +41,10 @@ AsyncStorage.getItem("access_token").then((token) => {   //It sends the post req
   .then((responseData) => {
       if(responseData.code==200)
       {
-        global.userInfo=responseData.userInfo
+         global.userInfo=responseData.userInfo
+         validName=responseData.userInfo.name;
+         validEmail=responseData.userInfo.email;
+         validPhone=responseData.userInfo.phone;
       }
      
 
@@ -59,9 +62,12 @@ export default class Profile extends Component {
 
 
   state = {
-  
+    name: validName,
+    email: validEmail,
+    phone: validPhone,
     loading: false
   };
+  
 
   static navigationOptions = () => ({
     title: 'User Profile',
@@ -76,7 +82,8 @@ export default class Profile extends Component {
   handleUser = async () => {
     const { navigation } = this.props;
     const { name,email,phone, password,c_password } = this.state;
-    this.refs.toast.show("Invalid fullname length !",2000);
+
+   
 
     var mailformat = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
@@ -104,6 +111,9 @@ export default class Profile extends Component {
 
     Keyboard.dismiss();
     this.setState({ loading: true });
+
+   
+
 
     let response= await fetch('https://foodapp.elscript.com/api/update-user', {
             method: 'POST',
@@ -182,6 +192,7 @@ export default class Profile extends Component {
               placeholderTextColor="#7D3C3C"
               style={[styles.textInput]}
               onChangeText={text => this.setState({ name: text })}
+              defaultValue={this.state.name}
              
             />
 
@@ -190,7 +201,7 @@ export default class Profile extends Component {
               placeholderTextColor="#7D3C3C"
               style={[styles.textInput]}
               onChangeText={text => this.setState({ email: text })}
-              defaultValue={userInfo.email}
+              defaultValue={this.state.email}
               
             />
             <Input  
@@ -198,7 +209,7 @@ export default class Profile extends Component {
               placeholderTextColor="#7D3C3C"
               style={[styles.textInput]}
               onChangeText={text => this.setState({ phone: text })}
-              defaultValue={userInfo.phone}
+              defaultValue={this.state.phone}
               
             />
             <Input 
@@ -232,7 +243,7 @@ export default class Profile extends Component {
           </Block>
         </Block>
       
-        <Toast
+                 <Toast
                     ref="toast"
                     style={{backgroundColor:'red',borderRadius: width/20}}
                     position='top'

@@ -11,8 +11,7 @@ const { width } = Dimensions.get("window");
 import StarRating from '../components/StarRating';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import NumericInput from 'react-native-numeric-input'
-import { SliderPicker } from 'react-native-slider-picker';
-
+import Toast, {DURATION} from 'react-native-easy-toast';
 
 import { Card, Block, Text } from "../components";
 import { theme } from "../constants";
@@ -23,17 +22,74 @@ const url = 'https://foodapp.elscript.com/';
 
 
 export default class OverView extends Component {
+
+
+  manageCart = async (item_id) => {
+    
+    const { value } = this.state;
+    
+
+    let response= await fetch('https://foodapp.elscript.com/api/carts', {
+      method: 'POST',
+      headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization':'Bearer '+token
+      },
+      body: JSON.stringify({
+        item_id: item_id,
+        quantity:value,
+      })
+  })
+.then((response) => response.json())
+.then((responseData) => {
+  if(responseData.code==200)
+    { 
+      global.isCartChanged=1;
+      alert(responseData.message);
+
+    }
+    else{
+      
+      this.refs.toast.show(responseData.message,2000);
+      return;
+
+    }
+
+})
+    
+
+    
+  }
+
+  manageOrder = async (itemDetail) => {
+    global.isOrderChanged=1;
+    const { value } = this.state;
+
+    const { navigation } = this.props;
+    itemDetail.quantity=value;
+
+
+    navigation.navigate("OrderDetail",{order_item: itemDetail});
+
+   
+    
+    
+  }
+
   state = {
     
   };
   constructor(props) {
     super(props);
  
-    this.state = { value: 500 };
+    this.state = {
+       value: 1,
+       };
   }
 
-  static navigationOptions = () => ({
-    title: 'Item Detail',
+  static navigationOptions = ({navigation}) => ({
+    title:navigation.getParam('ItemDetails').item_name,
     headerTintColor: 'black',
     headerStyle: {
       backgroundColor: 'white'
@@ -52,19 +108,28 @@ export default class OverView extends Component {
     return (
       <ScrollView style={{backgroundColor:'white'}} showsVerticalScrollIndicator={true}>
      <Block>
+     <Toast
+                    ref="toast"
+                    style={{backgroundColor:'red',borderRadius: width/20}}
+                    position='bottom'
+                    positionValue={300}
+                    fadeInDuration={200}
+                    fadeOutDuration={500}
+                    opacity={0.7}
+                    textStyle={{color:'white'}}
+               />
        
           <View style={styles.Container}>
-          <Image
+        <Image
         style={{ width: width, height: width/2 }}
         source={{
           uri: url+ItemDetails.image_name,
         }}
-        
          />
           </View>
           <Block flex={false} row space="between" style={{padding:20,paddingBottom:15,}}>
           <Text style={{fontSize:width/25}}  bold >Overview</Text>
-          <StarRating ratings={4}  />
+          <StarRating ratings={(ItemDetails.rating<4.5 ? 4 : 5 )}  />
           </Block>
         <Block
           style={{
@@ -77,38 +142,14 @@ export default class OverView extends Component {
         <Block row space="between">
         <Block style={{paddingLeft:20}}>
         <NumericInput
-        initValue={1}
-        minValue={1} maxvalue={20} totalWidth={60} totalHeight={40}  type='up-down' iconSize={30} onChange={value => console.log(value)} />
+        value={this.state.value} 
+       
+        minValue={1} maxvalue={20} totalWidth={60} totalHeight={40}  type='up-down' iconSize={30} onChange={value => this.setState({value})}  />
         </Block>
         <Text bold right primary style={{paddingRight:30,paddingTop:15,fontSize:14}}>Price: Rs {ItemDetails.price}</Text>
         </Block>
 
-        <View >
- 
-        <SliderPicker 
-          maxValue={1000}
-          callback={position => {
-            this.setState({ value: position });
-          }}
-          defaultValue={this.state.value}
-          labelFontColor={"#6c7682"}
-          labelFontWeight={'600'}
-          showFill={true}
-          fillColor={'red'}
-          labelFontWeight={'bold'}
-          showNumberScale={true}
-          showSeparatorScale={true}
-          buttonBackgroundColor={'#fff'}
-          buttonBorderColor={"#6c7682"}
-          buttonBorderWidth={1}
-          scaleNumberFontWeight={'100'}
-          buttonDimensionsPercentage={4}
-          heightPercentage={1}
-          widthPercentage={80}
-        />
-        
-        <Text style={{paddingLeft:width/10}}>Distance: {this.state.value} (Find seller within {this.state.value} m)</Text>
-      </View>
+
         <Block
           style={{
             borderBottomColor: '#E7E3E3',
@@ -128,7 +169,7 @@ export default class OverView extends Component {
 
         <Block flex={false}  row space="between" style={styles.categories}>
                            
-        <TouchableOpacity onPress={() => alert("Item Added to Cart! Please Check Cart for more details")}>
+        <TouchableOpacity onPress={() => this.manageCart(ItemDetails.item_id)}>
 
                 <Card row center middle shadow style={styles.category}>
                
@@ -140,7 +181,7 @@ export default class OverView extends Component {
                 </Card>
               </TouchableOpacity>
               
-              <TouchableOpacity onPress={() => navigation.navigate("OrderDetail")}>
+              <TouchableOpacity onPress={() => this.manageOrder(ItemDetails)}>
 
                 <Card gradient row center middle shadow style={styles.category}>
                

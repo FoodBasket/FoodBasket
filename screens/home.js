@@ -4,13 +4,12 @@ import {
   Dimensions,
   Image,
   FlatList,
-  Modal,
   StyleSheet,
   ScrollView,
   View,
   TouchableOpacity,
 } from "react-native";
-import { Card,Block, Text } from "../components";
+import { Block, Text } from "../components";
 import { theme } from "../constants";
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import StarRating from '../components/StarRating';
@@ -37,45 +36,23 @@ let response=  fetch(url+'api/categories', {
         console.error(error);
       }) 
 
-      let slideresponse=  fetch(url+'api/slide', {
-                  method: 'GET',
-              })
-      
-                  .then((slideresponse) => slideresponse.json())
-                  .then((responseData) => {
-                    SlideData=responseData.SlideData;
-                    
-            })
-            .catch((error) =>{
-              console.error(error);
-            }) 
-
-
-            let specialresponse=  fetch(url+'api/special', {
-              method: 'GET',
-          })
-  
-              .then((specialresponse) => specialresponse.json())
-              .then((responseData) => {
-                SpecialData=responseData.SpecialData;
-                
-        })
-        .catch((error) =>{
-          console.error(error);
-        })
-        
-        let timeresponse=  fetch(url+'api/time', {
-          method: 'GET',
-      })
-
-          .then((timeresponse) => timeresponse.json())
-          .then((responseData) => {
-            TimeData=responseData.TimeData;
-            
+  let slideresponse=  fetch(url+'api/slide', {
+        method: 'GET',
     })
-    .catch((error) =>{
-      console.error(error);
-    })
+
+        .then((slideresponse) => slideresponse.json())
+        .then((responseData) => {
+          SlideData=responseData.SlideData;
+          
+  })
+  .catch((error) =>{
+    console.error(error);
+  }) 
+
+ 
+
+
+
 
 let itemresponse=  fetch(url+'api/items', {
       method: 'GET',
@@ -83,7 +60,7 @@ let itemresponse=  fetch(url+'api/items', {
 
       .then((itemresponse) => itemresponse.json())
       .then((responseData) => {
-        ItemData=responseData.ItemData;
+        global.ItemData=responseData.ItemData;
         
 })
 .catch((error) =>{
@@ -147,9 +124,10 @@ back_Button_Press = () => {
     ),
     headerRight: (
       <Block middle  row space="between"> 
-         <TouchableOpacity onPress={() => navigation.navigate("Location")}>
+       {/*  <TouchableOpacity onPress={() => navigation.navigate("Location")}>
         <MaterialIcons middle style={{padding:10,paddingTop:15}} name="location-on" size={25} color="#FF6347" />
         </TouchableOpacity>
+      */}
         <TouchableOpacity onPress={() => navigation.navigate("Notification")}>
         <MaterialIcons   style={{padding:10,paddingTop:15}} name="notifications"  size={25} color="#FF6347" />
         </TouchableOpacity>
@@ -286,29 +264,30 @@ back_Button_Press = () => {
         >
        <Block row space="between"> 
 
-       {SpecialData.map((special, index) => (
-       <TouchableOpacity onPress={() => navigation.navigate("Overview",{ItemDetails: special})}>
+       {ItemData.map((item, index) => (
+       (item.featured=="recommend" ? 
+       <TouchableOpacity onPress={() => navigation.navigate("Overview",{ItemDetails: item})}>
        <View style={{ padding:width/25,paddingLeft:0,paddingRight:10, }}>
                       
-       <View style={{ width: width / 2.3, height: width / 1.8,elevation:1, borderWidth: 1, borderColor: '#dddddd' }}>
+       <View style={{ width: width / 2.3, height: width / 1.7,elevation:1, borderWidth: 1, borderColor: '#dddddd' }}>
                 <View style={{ flex: 1 }}>
                     <Image
                         style={{ flex: 1, width: null, resizeMode: 'cover' }}
                         source={{
-                          uri: url+special.image_name,
+                          uri: url+item.image_name,
                         }}
                          />
                 </View>
-                <View style={{ flex: 1, padding: width/40 }}>
+                <View style={{  padding: width/40 }}>
                 <Text bold >
-                      {special.item_name}
+                      {item.item_name}
                     </Text>
                     <Text bold style={{fontSize:12,color:'#FC4A1A'}}>
-                      {special.item_element}
+                      {item.item_element}
                     </Text>
                     <StarRating ratings={4}  />
                     <Text bold style={{fontSize:13,paddingTop:10,}}>
-                      Rs {special.price}
+                      Rs {item.price}
                     </Text>
                    
                 </View>
@@ -316,6 +295,9 @@ back_Button_Press = () => {
 
         </View>
         </TouchableOpacity>
+        : null
+        )
+
         ))}
 
         
@@ -325,13 +307,83 @@ back_Button_Press = () => {
   
 
 
-<Block
+
+
+
+          
+      
+
+       {categoryData.map((category, index) => (
+         (category.category_name=="Drinks" ? 
+        <Block>
+        <Text h3 center light>
+           {"\n"}
+           {category.category_name}
+       </Text>
+          <ScrollView
+          showsVerticalScrollIndicator={false}
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
+          scrollEventThrottle={16}
+        >
+      {ItemData.map((item, index) => (
+       (item.category==category.category_name ? 
+
+        
+       <TouchableOpacity onPress={() => navigation.navigate("Overview",{ItemDetails: item})}>
+       <View style={{ padding:width/25,paddingLeft:0,paddingRight:10, }}>
+                      
+       <View style={{ width: width / 2.3, height: width / 1.5,elevation:1, borderWidth: 1, borderColor: '#dddddd' }}>
+                <View style={{ flex: 1 }}>
+                    <Image
+                        style={{ flex: 1, width: null, resizeMode: 'cover' }}
+                        source={{
+                          uri: url+item.image_name,
+                        }}
+                         />
+                </View>
+                <View style={{  padding: width/40 }}>
+                <Text bold >
+                      {item.item_name}
+                    </Text>
+                    <Text bold style={{fontSize:12,color:'#FC4A1A'}}>
+                      {item.item_element}
+                    </Text>
+                    <StarRating ratings={4}  />
+                    <Text bold style={{fontSize:13,paddingTop:10,}}>
+                      Rs {item.price}
+                    </Text>
+                   
+                </View>
+            </View>
+
+        </View>
+        </TouchableOpacity>
+        
+        : null
+        )
+        
+
+        ))}
+         
+          </ScrollView>
+  <Block
   style={{
     borderBottomColor: '#E7E3E3',
-    borderBottomWidth: 2,
+    borderBottomWidth: 1,
     padding:10
   }}
 />
+          </Block>
+          : null
+          )
+
+
+           ))}
+
+         
+
+
 
 
 
@@ -343,29 +395,30 @@ back_Button_Press = () => {
            {"\n"}
     </Text>
 
-    {TimeData.map((time, index) => (
+    {ItemData.map((item, index) => (
+       (item.time1!=null&&item.time2!=null ? 
 
   <View style={styles.Container}>
-  <TouchableOpacity onPress={() => navigation.navigate("Overview",{ItemDetails: time})}>
+  <TouchableOpacity onPress={() => navigation.navigate("Overview",{ItemDetails: item})}>
           <Image
         style={{ width: width, height: width/1.9 }}
         source={{
-          uri: url+time.image_name,
+          uri: url+item.image_name,
         }}
         resizeMode="contain"
          />
          <View style={styles.botstyle}>
            <Text style={{fontSize:16}}>
-              {time.item_name}
+              {item.item_name}
             </Text>
             <Text  style={{fontSize:13,color:'gray'}}>
-              {time.item_element}
+              {item.item_element}
             </Text>
             <Text bold style={{fontSize:13,paddingTop:7,color:'gray'}}>
-              Time: {time.time1} to {time.time2}
+              Time: {item.time1} to {item.time2}
             </Text>
             <Text bold style={{fontSize:14,paddingTop:10,}}>
-                  Rs {time.price}
+                  Rs {item.price}
             </Text>
            </View>
   </TouchableOpacity>
@@ -381,9 +434,10 @@ back_Button_Press = () => {
    <Text>{"\n"}</Text>
    </View>
   
-    
+  : null
+        )
+        
     ))}
-
    
 
 

@@ -6,21 +6,96 @@ import {
   Dimensions,
   TouchableOpacity,
   View,
+  AsyncStorage,
 } from "react-native";
 const { width } = Dimensions.get("window");
+
 import StarRating from '../components/StarRating';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import { SliderPicker } from 'react-native-slider-picker';
+import Toast, {DURATION} from 'react-native-easy-toast';
 
 
 import { Button, Block, Text } from "../components";
 import { theme } from "../constants";
 
+const url = 'https://foodapp.elscript.com/';
 
 
 
-export default class OverView extends Component {
+
+
+
+
+
+
+export default class OrderDetail extends Component {
+
   state = {
+    item_id: null,
+    location_id: null,
+    quantity: null,
+    range: null,
+    total: null,
     
+  };
+  
+
+
+
+  
+  handleOrder = async (order_item) => {
+    const { navigation } = this.props;
+    const { item_id,location_id,quantity, range,total } = this.state;
+
+   
+
+
+    let response= await fetch('https://foodapp.elscript.com/api/orders', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization':'Bearer '+token
+            },
+            body: JSON.stringify({
+              item_id: order_item.item_id,
+              location_id: 1000,
+              quantity: order_item.quantity,
+              range: 10000,
+              total: order_item.quantity * order_item.price,
+  })
+        })
+
+        .then((response) => response.json())
+        .then((responseData) => {
+            if(responseData.code==200)
+            { 
+              alert(responseData.message);
+
+            }
+            else{
+              this.refs.toast.show(responseData.message,2000);
+              return;
+            }
+
+  })
+  .catch((error) =>{
+    console.error(error);
+  }) 
+
+
+
+  }
+
+
+
+
+
+
+  state = {
+      distance: 500,
+  
   };
 
   static navigationOptions = () => ({
@@ -37,6 +112,7 @@ export default class OverView extends Component {
     const { navigation } = this.props;
     const { loading, errors } = this.state;
     const hasErrors = key => (errors.includes(key) ? styles.s : null);
+    const order_item = this.props.navigation.getParam('order_item');
     
 
     return (
@@ -47,25 +123,51 @@ export default class OverView extends Component {
         <View>
           <Image
         style={{ width: width, height: width/2 }}
-        source={require("../assets/foodimage/food3.jpg")} 
+        source={{
+          uri: url+order_item.image_name,
+        }}
         
          />
          </View>
           </View>
-          <Block flex={false} row space="between" style={{padding:20}}>
-          <Text center style={{fontSize:width/25}}  bold >Confirm Order</Text>
-          </Block>
         <Block
           style={{
             borderBottomColor: '#E7E3E3',
             borderBottomWidth: 1,
           }}
         />
-        <Text bold gray style={{padding:20,paddingBottom:4,fontSize:14}}>Amazing Food Name</Text>
-        <Text  style={{paddingLeft:20,paddingBottom:4,fontSize:14}}>Spicy and Freshly Delivered</Text>
-        <Text  style={{paddingLeft:20,fontSize:14,paddingBottom:4}}>Qty: 1</Text>
-        <Text bold  style={{paddingLeft:20,fontSize:14}}>Delivery Location: Sallaghari-16, Bhaktapur</Text>
-        <Text bold primary style={{paddingLeft:20,fontSize:14}}>Total: Rs 300</Text>
+        <Text bold gray style={{padding:20,paddingBottom:4,fontSize:14}}>{order_item.item_name}</Text>
+        <Text  style={{paddingLeft:20,paddingBottom:4,fontSize:14}}>{order_item.item_element}</Text>
+        <Text  style={{paddingLeft:20,fontSize:14,paddingBottom:4}}>Qty: {order_item.quantity}</Text>
+        <Text bold  style={{paddingLeft:20,fontSize:14}}>Delivery Location: Only in Ktm Valley</Text>
+        <Text bold primary style={{paddingLeft:20,fontSize:14}}>Total: Rs {order_item.quantity * order_item.price} ({order_item.quantity} X {order_item.price})</Text>
+        <View >
+ 
+ {/*<SliderPicker 
+   maxValue={1000}
+   callback={position => {
+     this.setState({ distance: position });
+   }}
+   defaultValue={this.state.distance}
+   labelFontColor={"#6c7682"}
+   labelFontWeight={'600'}
+   showFill={true}
+   fillColor={'red'}
+   labelFontWeight={'bold'}
+   showNumberScale={true}
+   showSeparatorScale={true}
+   buttonBackgroundColor={'#fff'}
+   buttonBorderColor={"#6c7682"}
+   buttonBorderWidth={1}
+   scaleNumberFontWeight={'100'}
+   buttonDimensionsPercentage={4}
+   heightPercentage={1}
+   widthPercentage={80}
+ />
+ 
+ <Text style={{paddingLeft:width/10}}>Distance: {this.state.distance} (Find seller within {this.state.distance} m)</Text>
+  */}
+</View>
 
 
         
@@ -76,16 +178,27 @@ export default class OverView extends Component {
             borderBottomWidth: 1,
           }}
         />
-        <Text style={{fontSize:14,padding:20,textAlign: 'justify',letterSpacing: 1,paddingBottom:width/6}}>
-          By confirming the order you will notify the seller about your order.
+        <Text style={{fontSize:14,padding:20,textAlign: 'justify',letterSpacing: 1,paddingBottom:width/20}}>
+          By confirming the order you will be notifying the seller about your order.
+          You cannot cancel your order once placed.
         </Text>
 
   
                   
               
-        <Button  style={styles.loginbutton} gradient onPress={() => alert("Your order has been placed successfully")}>
+        <Button  style={styles.loginbutton} gradient onPress={() => this.handleOrder(order_item)}>
            <Text style={{color:'white'}} center>Confirm Order</Text> 
         </Button>
+        <Toast
+                    ref="toast"
+                    style={{backgroundColor:'red',borderRadius: width/20}}
+                    position='top'
+                    positionValue={400}
+                    fadeInDuration={200}
+                    fadeOutDuration={500}
+                    opacity={0.8}
+                    textStyle={{color:'white'}}
+                />
             
           
       
